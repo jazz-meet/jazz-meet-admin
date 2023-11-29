@@ -8,7 +8,7 @@ import { BaseLayout } from './layouts/BaseLayout';
 import { InquiriesPage } from './pages/InquiriesPage';
 import { ShowsPage } from './pages/ShowsPage';
 import { VenuesPage } from './pages/VenuesPage';
-import { VenueDetail } from './pages/VenuesPage/AdminVenueDetail';
+import { VenueDetail } from './pages/VenuesPage/VenueDetail';
 
 export const Router: React.FC = () => {
   return <RouterProvider router={router} />;
