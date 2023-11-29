@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { StyledButton } from '~/components/Button';
+import { Button } from '~/components/Button';
 
 export const VenueDetail = () => {
   return (
@@ -7,9 +7,9 @@ export const VenueDetail = () => {
       <StyledHeader>{`공연장 > 공연장 상세조회`}</StyledHeader>
 
       <StyledButtons>
-        <StyledButton>수정</StyledButton>
-        <StyledButton>삭제</StyledButton>
-        <StyledButton>목록</StyledButton>
+        <Button>수정</Button>
+        <Button>삭제</Button>
+        <Button>목록</Button>
       </StyledButtons>
       <StyledBody>
         <StyledTitle>공연장 id</StyledTitle>
@@ -30,7 +30,7 @@ export const VenueDetail = () => {
             </StyledImageWrapper>
             <StyledImageContent>
               <StyledFileName>1.jpg</StyledFileName>
-              <StyledButton>삭제</StyledButton>
+              <Button>삭제</Button>
             </StyledImageContent>
           </StyledImageContainer>
           <StyledImageContainer>
@@ -43,7 +43,7 @@ export const VenueDetail = () => {
             </StyledImageWrapper>
             <StyledImageContent>
               <StyledFileName>2.jpg</StyledFileName>
-              <StyledButton>삭제</StyledButton>
+              <Button>삭제</Button>
             </StyledImageContent>
           </StyledImageContainer>
 
@@ -57,7 +57,7 @@ export const VenueDetail = () => {
             </StyledImageWrapper>
             <StyledImageContent>
               <StyledFileName>3.jpg</StyledFileName>
-              <StyledButton>삭제</StyledButton>
+              <Button>삭제</Button>
             </StyledImageContent>
           </StyledImageContainer>
         </StyledContent>
