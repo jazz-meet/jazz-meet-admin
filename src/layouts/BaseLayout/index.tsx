@@ -6,13 +6,19 @@ export const BaseLayout: React.FC = () => {
   return (
     <StyledLayout>
       <Sidebar />
-      <Outlet />
+      <StyledOutletWrapper>
+        <Outlet />
+      </StyledOutletWrapper>
     </StyledLayout>
   );
 };
 
 const StyledLayout = styled.div`
-  display: flex;
   height: 100vh;
   overflow-y: auto;
+  display: flex;
+`;
+
+const StyledOutletWrapper = styled.div`
+  width: calc(100% - var(--sidebar-width));
 `;
