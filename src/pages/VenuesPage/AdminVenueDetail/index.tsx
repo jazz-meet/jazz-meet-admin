@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { StyledButton } from '~/components/Button';
 
 export const AdminVenueDetail = () => {
   return (
@@ -115,23 +116,9 @@ const StyledButtons = styled.div`
   gap: 10px;
 `;
 
-const StyledButton = styled.button`
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #000000;
-  background-color: #ffffff;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 0 #000000;
-
-  &:active {
-    box-shadow: 1px 1px 0 0 #000000;
-    transform: translate(1px, 1px);
-  }
-`;
-
 const StyledBody = styled.div`
   margin: 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #000000;
   box-shadow: 2px 2px 0 0 #000000;
   display: grid;
