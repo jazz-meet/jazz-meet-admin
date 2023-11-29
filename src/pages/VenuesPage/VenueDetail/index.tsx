@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { StyledButton } from '~/components/Button';
 
-export const AdminVenueDetail = () => {
+export const VenueDetail = () => {
   return (
     <StyledVenuesPage>
       <StyledHeader>{`공연장 > 공연장 상세조회`}</StyledHeader>
