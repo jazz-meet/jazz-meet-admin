@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import { useEffect, useState } from 'react';
 import { getInquiryData } from '~/apis/inquiry';
 import { PaginationBox } from '~/components/PaginationBox';
-import { INQUIRY_CATEGORIES } from '~/constants/INQUIRY_CATEGORIES';
+import { INQUIRY_CATEGORIES } from '~/constants/inquiryCategories';
 import { clickableStyle } from '~/styles/common';
 import { InquiryData, InquiryParams } from '~/types/api.types';
 import { InquiryCategories } from '~/types/inquiry.types';
