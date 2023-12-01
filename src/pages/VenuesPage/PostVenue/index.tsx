@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
 import { VenueImages } from './VenueImages';
+import { VenueLocation } from './VenueLocation';
 
 export const PostVenue: React.FC = () => {
   return (
@@ -9,49 +10,25 @@ export const PostVenue: React.FC = () => {
       <StyledHeader>{`공연장 > 공연장 생성`}</StyledHeader>
 
       <StyledForm>
-        <StyledInputContainer>
-          <label htmlFor="venue-name">공연장명</label>
-          <Input id={'venue-name'} />
-        </StyledInputContainer>
+        <label htmlFor="venue-name">공연장명</label>
+        <Input id={'venue-name'} />
 
-        <StyledInputContainer>
-          <VenueImages />
-        </StyledInputContainer>
+        <VenueImages />
 
-        <StyledInputContainer>
-          <label htmlFor="venue-name">도로명 주소</label>
-          <Input />
-        </StyledInputContainer>
+        <VenueLocation />
 
-        <StyledInputContainer>
-          <label htmlFor="venue-name">지번</label>
-          <Input />
-        </StyledInputContainer>
+        <label htmlFor="venue-name">전화번호</label>
+        <Input />
 
-        <StyledInputContainer>
-          <label htmlFor="venue-name">전화번호</label>
-          <Input />
-        </StyledInputContainer>
+        <label htmlFor="venue-name">링크</label>
+        <Input />
 
-        <StyledInputContainer>
-          <label htmlFor="venue-name">링크</label>
-          <Input />
-        </StyledInputContainer>
+        <label htmlFor="venue-name">영업시간</label>
+        <Input />
 
-        <StyledInputContainer>
-          <label htmlFor="venue-name">영업시간</label>
-          <Input />
-        </StyledInputContainer>
+        <label htmlFor="venue-name">공연장 설명</label>
+        <Input />
 
-        <StyledInputContainer>
-          <label htmlFor="venue-name">공연장 설명</label>
-          <Input />
-        </StyledInputContainer>
-
-        <StyledInputContainer>
-          <label htmlFor="venue-name">공연장 좌표</label>
-          <Input />
-        </StyledInputContainer>
         <StyledButtons>
           <Button>생성</Button>
           <Button>취소</Button>
@@ -76,13 +53,6 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const StyledInputContainer = styled.div`
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 `;
 
 const StyledButtons = styled.div`
