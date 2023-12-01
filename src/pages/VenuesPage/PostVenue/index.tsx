@@ -3,6 +3,7 @@ import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
 import { VenueImages } from './VenueImages';
 import { VenueLocation } from './VenueLocation';
+import { VenuePhoneNumber } from './VenuePhoneNumber';
 
 export const PostVenue: React.FC = () => {
   return (
@@ -17,8 +18,7 @@ export const PostVenue: React.FC = () => {
 
         <VenueLocation />
 
-        <label htmlFor="venue-name">전화번호</label>
-        <Input />
+        <VenuePhoneNumber />
 
         <label htmlFor="venue-name">링크</label>
         <Input />
