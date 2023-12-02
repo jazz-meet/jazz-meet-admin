@@ -1,21 +1,19 @@
 import styled from '@emotion/styled';
 import { Button } from '~/components/Button';
-import { Input } from '~/components/Input';
 import { VenueDescription } from './VenueDescription';
 import { VenueExternalLinks } from './VenueExternalLinks';
 import { VenueHours } from './VenueHours';
 import { VenueImages } from './VenueImages';
 import { VenueLocation } from './VenueLocation';
+import { VenueName } from './VenueName';
 import { VenuePhoneNumber } from './VenuePhoneNumber';
 
 export const PostVenue: React.FC = () => {
   return (
     <StyledPostVenue>
       <StyledHeader>{`공연장 > 공연장 생성`}</StyledHeader>
-
       <StyledForm>
-        <label htmlFor="venue-name">공연장명</label>
-        <Input id={'venue-name'} />
+        <VenueName />
         <VenueImages />
         <VenueLocation />
         <VenuePhoneNumber />
