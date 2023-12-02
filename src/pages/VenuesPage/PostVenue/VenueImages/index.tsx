@@ -114,7 +114,7 @@ const StyledLabel = styled.label`
 
 const StyledAddButtonContainer = styled.div`
   ${buttonStyle}
-  position:relative;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
+
+import { VenueExternalLinks } from './VenueExternalLinks';
 import { VenueImages } from './VenueImages';
 import { VenueLocation } from './VenueLocation';
 import { VenuePhoneNumber } from './VenuePhoneNumber';
@@ -13,22 +15,14 @@ export const PostVenue: React.FC = () => {
       <StyledForm>
         <label htmlFor="venue-name">공연장명</label>
         <Input id={'venue-name'} />
-
         <VenueImages />
-
         <VenueLocation />
-
         <VenuePhoneNumber />
-
-        <label htmlFor="venue-name">링크</label>
-        <Input />
-
+        <VenueExternalLinks />
         <label htmlFor="venue-name">영업시간</label>
         <Input />
-
         <label htmlFor="venue-name">공연장 설명</label>
         <Input />
-
         <StyledButtons>
           <Button>생성</Button>
           <Button>취소</Button>
