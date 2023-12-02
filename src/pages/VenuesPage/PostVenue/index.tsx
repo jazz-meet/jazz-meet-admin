@@ -50,4 +50,5 @@ const StyledForm = styled.form`
 
 const StyledButtons = styled.div`
   display: flex;
+  gap: 10px;
 `;
