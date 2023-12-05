@@ -43,3 +43,27 @@ export type InquiryParams = {
 export type InquiryData = {
   inquiries: Inquiry[];
 } & Pagination;
+
+export type VenuePostBody = {
+  name: string;
+  imageIds: number[];
+  roadNameAddress: string;
+  lotNumberAddress: string;
+  phoneNumber: string;
+  description: string;
+  links: {
+    type: string;
+    url: string;
+  }[];
+  venueHours: {
+    day: string;
+    businessHours: string;
+  }[];
+  latitude: number;
+  longitude: number;
+};
+
+export type ImageType = {
+  id: number;
+  url: string;
+};

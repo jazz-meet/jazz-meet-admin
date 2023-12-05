@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { Button } from '~/components/Button';
 
-export const VenueHours: React.FC = () => {
+export const Hours: React.FC = () => {
   return (
     <>
       <div>영업시간</div>
@@ -22,6 +22,7 @@ export const VenueHours: React.FC = () => {
           <input id="venue-closed" type="checkbox" />
         </StyledCheckboxContainer>
       </StyledHourInputContainer>
+
       <StyledWeekdays>
         <Button>일</Button>
         <Button>월</Button>
@@ -32,28 +33,28 @@ export const VenueHours: React.FC = () => {
         <Button>토</Button>
       </StyledWeekdays>
 
-      <StyledVenueHourList>
-        <StyledVenueHourItem>
+      <StyledHourList>
+        <StyledHourItem>
           <div>월요일 | 10:00 ~ 12:00</div>
           <Button>수정</Button>
           <Button>삭제</Button>
-        </StyledVenueHourItem>
-        <StyledVenueHourItem>
+        </StyledHourItem>
+        <StyledHourItem>
           <div>화요일 | 10:00 ~ 12:00</div>
           <Button>수정</Button>
           <Button>삭제</Button>
-        </StyledVenueHourItem>
-        <StyledVenueHourItem>
+        </StyledHourItem>
+        <StyledHourItem>
           <div>수요일 | 10:00 ~ 12:00</div>
           <Button>수정</Button>
           <Button>삭제</Button>
-        </StyledVenueHourItem>
-        <StyledVenueHourItem>
+        </StyledHourItem>
+        <StyledHourItem>
           <div>목요일 | 휴무</div>
           <Button>수정</Button>
           <Button>삭제</Button>
-        </StyledVenueHourItem>
-      </StyledVenueHourList>
+        </StyledHourItem>
+      </StyledHourList>
     </>
   );
 };
@@ -86,7 +87,7 @@ const StyledWeekdays = styled.div`
   gap: 10px;
 `;
 
-const StyledVenueHourList = styled.div`
+const StyledHourList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -96,7 +97,7 @@ const StyledVenueHourList = styled.div`
   border-radius: 5px;
 `;
 
-const StyledVenueHourItem = styled.div`
+const StyledHourItem = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;

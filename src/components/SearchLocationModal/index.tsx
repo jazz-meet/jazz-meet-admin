@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { getGeoLocation } from '~/apis/geoLocation';
-import { VenueLocationProps } from '~/pages/VenuesPage/PostVenue/PostVenueForm/VenueLocation';
+import { LocationType } from '~/pages/VenuesPage/PostVenue/PostVenueForm/Location';
 
 type Props = {
   closeModal: () => void;
-  updateLocation: (location: VenueLocationProps) => void;
+  updateLocation: (location: LocationType) => void;
 };
 
 export const SearchLocationModal: React.FC<Props> = () => {

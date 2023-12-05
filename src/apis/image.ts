@@ -1,7 +1,10 @@
 import { ALLOWED_EXTENSIONS } from '~/constants/fileExtension';
+import { ImageType } from '~/types/api.types';
 import { fetchData } from './fetchData';
 
-export const uploadImages = async (files: File[]) => {
+export const uploadImages = async (
+  files: File[],
+): Promise<{ images: ImageType[] }> => {
   const formData = new FormData();
 
   files.forEach((file) => {

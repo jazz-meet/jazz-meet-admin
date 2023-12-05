@@ -1,32 +1,18 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { uploadImages } from '~/apis/image';
 import { ALLOWED_EXTENSIONS } from '~/constants/fileExtension';
 import { buttonStyle } from '~/styles/common';
+import { usePostVenueFormStore } from '../usePostVenueFormStore';
 import { Image } from './Image';
 
-export const VenueImages: React.FC = () => {
-  const [imageSources, setImageSources] = useState<string[]>();
-
-  const addImageSources = (sources: string[]) => {
-    setImageSources((prev) => {
-      if (!prev) {
-        return sources;
-      }
-
-      return [...prev, ...sources];
-    });
-  };
-
-  const deleteImageSource = (source: string) => {
-    setImageSources((prev) => {
-      if (!prev) {
-        return;
-      }
-
-      return prev.filter((prevSource) => prevSource !== source);
-    });
-  };
+export const Images: React.FC = () => {
+  const { images, addImage, deleteImage } = usePostVenueFormStore(
+    ({ images, addImage, deleteImage }) => ({
+      images,
+      addImage,
+      deleteImage,
+    }),
+  );
 
   const onInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = target.files;
@@ -39,8 +25,7 @@ export const VenueImages: React.FC = () => {
       try {
         const response = await uploadImages([...fileList]);
 
-        console.log(response);
-        console.log(addImageSources);
+        addImage(response.images);
         // TODO: response.data에 있는 이미지 주소를 imageSources에 추가
       } catch (error) {
         console.error(error);
@@ -55,7 +40,7 @@ export const VenueImages: React.FC = () => {
   };
 
   return (
-    <StyledVenueImages>
+    <StyledImages>
       <StyledHeader>
         <StyledLabel>공연장 이미지 등록</StyledLabel>
         <StyledAddButtonContainer>
@@ -71,20 +56,20 @@ export const VenueImages: React.FC = () => {
         </StyledAddButtonContainer>
       </StyledHeader>
 
-      <StyledImages>
-        {imageSources?.map((src) => (
+      <StyledImageContainer>
+        {images?.map((image) => (
           <Image
-            key={src}
-            src={src}
-            onDeleteButtonClick={() => deleteImageSource(src)}
+            key={image.id}
+            src={image.url}
+            onDeleteButtonClick={() => deleteImage(image.id)}
           />
         ))}
-      </StyledImages>
-    </StyledVenueImages>
+      </StyledImageContainer>
+    </StyledImages>
   );
 };
 
-const StyledVenueImages = styled.div`
+const StyledImages = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -95,7 +80,7 @@ const StyledHeader = styled.div`
   gap: 10px;
 `;
 
-const StyledImages = styled.div`
+const StyledImageContainer = styled.div`
   overflow-x: scroll;
   border: 1px solid #000000;
   border-radius: 8px;
