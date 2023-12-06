@@ -13,6 +13,7 @@ import { VenuePostBody } from '~/types/api.types';
 type VenueHours = VenuePostBody['venueHours'];
 
 export const Hours: React.FC = () => {
+  const [isInputError, setIsInputError] = useState(false);
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const businessHours = useRef<string>('');
   const [venueHours, setVenueHours] = useState<VenueHours>([]);
@@ -22,8 +23,13 @@ export const Hours: React.FC = () => {
   };
 
   const onWeekdayClick = (weekday: string) => {
+    if (isInputError) {
+      alert('올바른 시간을 입력해주세요.');
+      return;
+    }
+
     if (!checkboxChecked && !businessHours.current) {
-      alert('영업시간을 입력해주세요.');
+      alert('영업시간을 확인해주세요.');
       return;
     }
 
@@ -65,6 +71,7 @@ export const Hours: React.FC = () => {
                   'HH:mm',
                 )} ~ ${endTime.format('HH:mm')}`;
               }}
+              onError={([errorMessage]) => setIsInputError(!!errorMessage)}
               defaultValue={[dayjs(), dayjs()]}
               disabled={checkboxChecked}
             />
