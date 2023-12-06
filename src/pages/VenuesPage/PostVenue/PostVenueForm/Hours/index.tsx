@@ -30,7 +30,14 @@ export const Hours: React.FC = () => {
     const venueHour = checkboxChecked ? '휴무' : businessHours.current;
 
     setVenueHours((prev) => {
-      return [...prev, { day: weekday, businessHours: venueHour }];
+      const newVenueHours = [
+        ...prev,
+        { day: weekday, businessHours: venueHour },
+      ];
+
+      return newVenueHours.sort(
+        (a, b) => WEEKDAYS.indexOf(a.day) - WEEKDAYS.indexOf(b.day),
+      );
     });
   };
 
@@ -74,15 +81,7 @@ export const Hours: React.FC = () => {
       </StyledHourInputContainer>
 
       <StyledWeekdays>
-        {[
-          '일요일',
-          '월요일',
-          '화요일',
-          '수요일',
-          '목요일',
-          '금요일',
-          '토요일',
-        ].map((weekday) => (
+        {WEEKDAYS.map((weekday) => (
           <Button
             key={weekday}
             type="button"
@@ -107,6 +106,16 @@ export const Hours: React.FC = () => {
     </>
   );
 };
+
+const WEEKDAYS: ReadonlyArray<string> = [
+  '일요일',
+  '월요일',
+  '화요일',
+  '수요일',
+  '목요일',
+  '금요일',
+  '토요일',
+];
 
 const StyledHourInputContainer = styled.div`
   display: flex;
