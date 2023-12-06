@@ -83,7 +83,7 @@ export const Hours: React.FC = () => {
             key={weekday}
             type="button"
             onClick={() => onWeekdayClick(weekday)}
-            disabled={venueHours?.some((hour) => hour.day === weekday)}
+            disabled={venueHours.some((hour) => hour.day === weekday)}
           >
             {weekday.slice(0, 1)}
           </Button>
