@@ -8,14 +8,19 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useRef, useState } from 'react';
 import { Button } from '~/components/Button';
-import { VenuePostBody } from '~/types/api.types';
-
-type VenueHours = VenuePostBody['venueHours'];
+import { WEEKDAYS } from '~/constants/date';
+import { usePostVenueFormStore } from '../usePostVenueFormStore';
 
 export const Hours: React.FC = () => {
+  const { venueHours, addVenueHour, deleteVenueHour } = usePostVenueFormStore(
+    ({ venueHours, addVenueHour, deleteVenueHour }) => ({
+      venueHours,
+      addVenueHour,
+      deleteVenueHour,
+    }),
+  );
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const businessHours = useRef<string>('');
-  const [venueHours, setVenueHours] = useState<VenueHours>([]);
 
   const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckboxChecked(event.target.checked);
@@ -28,23 +33,7 @@ export const Hours: React.FC = () => {
     }
 
     const venueHour = checkboxChecked ? '휴무' : businessHours.current;
-
-    setVenueHours((prev) => {
-      const newVenueHours = [
-        ...prev,
-        { day: weekday, businessHours: venueHour },
-      ];
-
-      return newVenueHours.sort(
-        (a, b) => WEEKDAYS.indexOf(a.day) - WEEKDAYS.indexOf(b.day),
-      );
-    });
-  };
-
-  const deleteVenueHour = (weekday: string) => {
-    setVenueHours((prev) => {
-      return prev.filter((hour) => hour.day !== weekday);
-    });
+    addVenueHour({ day: weekday, businessHours: venueHour });
   };
 
   return (
@@ -106,16 +95,6 @@ export const Hours: React.FC = () => {
     </>
   );
 };
-
-const WEEKDAYS: ReadonlyArray<string> = [
-  '일요일',
-  '월요일',
-  '화요일',
-  '수요일',
-  '목요일',
-  '금요일',
-  '토요일',
-];
 
 const StyledHourInputContainer = styled.div`
   display: flex;

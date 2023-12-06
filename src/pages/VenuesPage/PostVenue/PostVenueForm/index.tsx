@@ -12,10 +12,11 @@ import { ExternalLinks } from './VenueExternalLinks';
 import { usePostVenueFormStore } from './usePostVenueFormStore';
 
 export const PostVenueForm: React.FC = () => {
-  const { location, getImageIds } = usePostVenueFormStore(
-    ({ location, getImageIds }) => ({
+  const { location, getImageIds, venueHours } = usePostVenueFormStore(
+    ({ location, getImageIds, venueHours }) => ({
       location,
       getImageIds,
+      venueHours,
     }),
   );
 
@@ -40,7 +41,6 @@ export const PostVenueForm: React.FC = () => {
       })
       .filter(Boolean);
 
-    const venueHours = formData.get(POST_VENUE_NAMES.VENUE_HOURS);
     const description = formData.get(POST_VENUE_NAMES.DESCRIPTION);
 
     const postVenueBody = {
