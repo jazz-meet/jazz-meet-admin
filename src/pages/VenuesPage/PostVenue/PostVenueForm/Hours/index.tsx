@@ -17,8 +17,6 @@ export const Hours: React.FC = () => {
   const businessHours = useRef<string>('');
   const [venueHours, setVenueHours] = useState<VenueHours>([]);
 
-  console.log(venueHours);
-
   const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckboxChecked(event.target.checked);
   };
