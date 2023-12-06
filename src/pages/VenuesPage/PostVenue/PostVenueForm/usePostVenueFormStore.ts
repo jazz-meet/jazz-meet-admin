@@ -10,7 +10,7 @@ type LocationType = Pick<
 type VenueHours = VenuePostBody['venueHours'];
 
 type PostVenueFormStore = {
-  images: ImageType[] | null;
+  images: ImageType[];
   location: LocationType;
   venueHours: VenueHours;
 
@@ -25,7 +25,7 @@ type PostVenueFormStore = {
 };
 
 const initialState = {
-  images: null,
+  images: [],
   location: null,
   venueHours: [],
 };
@@ -35,18 +35,12 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
     ...initialState,
 
     addImage: (images) =>
-      set((state) => ({
-        images: state.images ? [...state.images, ...images] : images,
-      })),
+      set((state) => ({ images: [...state.images, ...images] })),
     deleteImage: (id) =>
       set(({ images }) => ({
-        images: images?.filter((image) => image.id !== id) || null,
+        images: images.filter((image) => image.id !== id),
       })),
-    getImageIds: () => {
-      const { images } = get();
-
-      return images?.map((image) => image.id);
-    },
+    getImageIds: () => get().images.map((image) => image.id),
 
     updateLocation: (location) => set(() => ({ location })),
 
