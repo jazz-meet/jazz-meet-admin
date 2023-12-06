@@ -34,6 +34,12 @@ export const Hours: React.FC = () => {
     });
   };
 
+  const deleteVenueHour = (weekday: string) => {
+    setVenueHours((prev) => {
+      return prev.filter((hour) => hour.day !== weekday);
+    });
+  };
+
   return (
     <>
       <div>영업시간</div>
@@ -94,8 +100,7 @@ export const Hours: React.FC = () => {
             <div>
               {hour.day} | {hour.businessHours}
             </div>
-            <Button>수정</Button>
-            <Button>삭제</Button>
+            <Button onClick={() => deleteVenueHour(hour.day)}>삭제</Button>
           </StyledHourItem>
         ))}
       </StyledHourList>
