@@ -9,6 +9,7 @@ import { InquiriesPage } from './pages/InquiriesPage';
 import { ShowsPage } from './pages/ShowsPage';
 import { VenuesPage } from './pages/VenuesPage';
 import { AdminVenueDetail } from './pages/VenuesPage/AdminVenueDetail';
+import { PostShow } from './pages/VenuesPage/PostShow';
 
 export const Router: React.FC = () => {
   return <RouterProvider router={router} />;
@@ -21,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="venues/:venueId" element={<AdminVenueDetail />} />
 
       <Route path="shows" element={<ShowsPage />} />
-      <Route path="shows/post" element={<div>공연 생성 및 수정</div>} />
+      <Route path="shows/post" element={<PostShow />} />
 
       <Route path="inquiries" element={<InquiriesPage />} />
     </Route>,
