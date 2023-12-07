@@ -1,5 +1,4 @@
 import { Input } from '~/components/Input';
-import { POST_VENUE_NAMES } from '~/constants/formNames';
 import { usePostVenueFormStore } from './usePostVenueFormStore';
 
 export const Name: React.FC = () => {
@@ -12,12 +11,14 @@ export const Name: React.FC = () => {
 
   return (
     <>
-      <label htmlFor={POST_VENUE_NAMES.NAME}>공연장명</label>
+      <label htmlFor={NAME}>공연장명</label>
       <Input
-        id={POST_VENUE_NAMES.NAME}
+        id={NAME}
         value={name}
         onChange={({ target }) => changeName(target.value)}
       />
     </>
   );
 };
+
+const NAME = 'venue-name';

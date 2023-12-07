@@ -15,7 +15,7 @@ export const Location: React.FC = () => {
   return (
     <>
       <StyledFlexContainer>
-        <label htmlFor="venue-name">도로명 주소</label>
+        <label>도로명 주소</label>
         <Button
           onClick={(event) => {
             event.preventDefault();
@@ -35,10 +35,10 @@ export const Location: React.FC = () => {
       </StyledFlexContainer>
       <Input disabled value={location?.roadNameAddress ?? ''} />
 
-      <label htmlFor="venue-name">지번</label>
+      <label>지번</label>
       <Input disabled value={location?.lotNumberAddress ?? ''} />
 
-      <label htmlFor="venue-name">공연장 좌표</label>
+      <label>공연장 좌표</label>
       <Input
         disabled
         value={

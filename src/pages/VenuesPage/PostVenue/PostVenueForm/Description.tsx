@@ -1,4 +1,3 @@
-import { POST_VENUE_NAMES } from '~/constants/formNames';
 import { usePostVenueFormStore } from './usePostVenueFormStore';
 
 export const Description: React.FC = () => {
@@ -11,9 +10,9 @@ export const Description: React.FC = () => {
 
   return (
     <>
-      <label htmlFor={POST_VENUE_NAMES.DESCRIPTION}>공연장 설명</label>
+      <label htmlFor={DESCRIPTION}>공연장 설명</label>
       <textarea
-        id={POST_VENUE_NAMES.DESCRIPTION}
+        id={DESCRIPTION}
         placeholder="공연장 설명을 입력해주세요."
         value={description}
         onChange={({ target }) => changeDescription(target.value)}
@@ -21,3 +20,5 @@ export const Description: React.FC = () => {
     </>
   );
 };
+
+const DESCRIPTION = 'venue-description';

@@ -10,7 +10,7 @@ export const ExternalLinks: React.FC = () => {
 
   return (
     <StyledExternalLinks>
-      <div>링크</div>
+      <label>링크</label>
 
       {Object.entries(links).map(([key, value]) => (
         <ExternalLink

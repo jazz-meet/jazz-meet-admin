@@ -9,8 +9,11 @@ export const PhoneNumber: React.FC = () => {
 
   return (
     <>
-      <div>{`전화번호 ('-' 포함하여 작성해주세요.)`}</div>
+      <label
+        htmlFor={PHONE_NUMBER}
+      >{`전화번호 ('-' 포함하여 작성해주세요.)`}</label>
       <Input
+        id={PHONE_NUMBER}
         type="text"
         value={phoneNumber}
         onChange={(event) => changePhoneNumber(event.target.value)}
@@ -20,3 +23,5 @@ export const PhoneNumber: React.FC = () => {
     </>
   );
 };
+
+const PHONE_NUMBER = 'venue-phone-number';
