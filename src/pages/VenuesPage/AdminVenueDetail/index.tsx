@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 export const AdminVenueDetail = () => {
   return (
     <StyledVenuesPage>
-      <StyledHeader>{`공연장 > 공연장 상세조회`}</StyledHeader>
-
       <StyledButtons>
         <StyledButton>수정</StyledButton>
         <StyledButton>삭제</StyledButton>
@@ -101,12 +99,6 @@ const StyledVenuesPage = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const StyledHeader = styled.div`
-  border-bottom: 1px solid #000000;
-  font-size: 24px;
-  padding: 20px;
 `;
 
 const StyledButtons = styled.div`
