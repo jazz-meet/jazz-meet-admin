@@ -57,7 +57,6 @@ const initialState = {
     etc: '',
     reservation: '',
   },
-  // links: EXTERNAL_LINKS.map((link) => ({ type: link.type, url: '' })),
   venueHours: [],
 };
 
