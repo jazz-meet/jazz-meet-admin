@@ -22,5 +22,5 @@ const StyledLayout = styled.div`
 `;
 
 const StyledOutletWrapper = styled.div`
-  width: 100%;
+  width: calc(100% - var(--sidebar-width));
 `;
