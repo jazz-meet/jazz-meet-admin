@@ -39,8 +39,6 @@ export const InquiriesPage: React.FC = () => {
 
   return (
     <StyledVenuesPage>
-      <StyledHeader>문의</StyledHeader>
-
       <StyledCategories>
         {INQUIRY_CATEGORIES.map((category, index) => (
           <StyledCategory key={index} onClick={() => selectCategory(category)}>
@@ -114,8 +112,4 @@ const StyledCategories = styled.div`
 const StyledCategory = styled.div`
   ${clickableStyle};
   cursor: pointer;
-`;
-
-const StyledHeader = styled.div`
-  font-size: 24px;
 `;

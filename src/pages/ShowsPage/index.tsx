@@ -31,8 +31,6 @@ export const ShowsPage: React.FC = () => {
 
   return (
     <StyledVenuesPage>
-      <StyledHeader>공연 목록</StyledHeader>
-
       {showList ? (
         <>
           <TableContainer component={Paper}>
@@ -90,8 +88,4 @@ const StyledVenuesPage = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const StyledHeader = styled.div`
-  font-size: 24px;
 `;
