@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import { EXTERNAL_LINKS } from '~/constants/externalLinks';
-import { POST_VENUE_NAMES } from '../../../../constants/formNames';
 import { ActionButtons } from './ActionButtons';
 import { Description } from './Description';
 import { Hours } from './Hours';
@@ -11,46 +9,40 @@ import { PhoneNumber } from './PhoneNumber';
 import { ExternalLinks } from './VenueExternalLinks';
 import { usePostVenueFormStore } from './usePostVenueFormStore';
 
-export const PostVenueForm: React.FC = () => {
-  const { location, getImageIds, venueHours } = usePostVenueFormStore(
-    ({ location, getImageIds, venueHours }) => ({
-      location,
-      getImageIds,
-      venueHours,
-    }),
-  );
+type Props = {
+  venueId?: string;
+};
+
+export const PostVenueForm: React.FC<Props> = () => {
+  const {
+    name,
+    location,
+    phoneNumber,
+    getImageIds,
+    venueHours,
+    description,
+    getLinks,
+  } = usePostVenueFormStore((state) => ({
+    name: state.name,
+    location: state.location,
+    phoneNumber: state.phoneNumber,
+    getImageIds: state.getImageIds,
+    venueHours: state.venueHours,
+    description: state.description,
+    getLinks: state.getLinks,
+  }));
 
   const onPostVenueSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get(POST_VENUE_NAMES.NAME);
-    const imageIds = getImageIds();
-    const phoneNumber = formData
-      .getAll(POST_VENUE_NAMES.PHONE_NUMBER)
-      .join('-');
-
-    const links = Object.entries(EXTERNAL_LINKS)
-      .map(([key, { type }]) => {
-        const url = formData.get(POST_VENUE_NAMES.EXTERNAL_LINKS + type);
-        if (!url) {
-          return;
-        }
-
-        return { type: key, url };
-      })
-      .filter(Boolean);
-
-    const description = formData.get(POST_VENUE_NAMES.DESCRIPTION);
-
     const postVenueBody = {
       name,
-      imageIds,
+      imageIds: getImageIds(),
       roadNameAddress: location?.roadNameAddress,
       lotNumberAddress: location?.lotNumberAddress,
       phoneNumber,
       description,
-      links,
+      links: getLinks(),
       venueHours,
       latitude: location?.latitude,
       longitude: location?.longitude,

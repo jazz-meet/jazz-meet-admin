@@ -1,14 +1,24 @@
 import styled from '@emotion/styled';
-import { EXTERNAL_LINKS } from '~/constants/externalLinks';
+import { usePostVenueFormStore } from '../usePostVenueFormStore';
 import { ExternalLink } from './ExternalLink';
 
 export const ExternalLinks: React.FC = () => {
+  const { links, changeLink } = usePostVenueFormStore((state) => ({
+    links: state.links,
+    changeLink: state.changeLink,
+  }));
+
   return (
     <StyledExternalLinks>
       <div>링크</div>
 
-      {Object.values(EXTERNAL_LINKS).map(({ type, text }) => (
-        <ExternalLink key={type} type={type} text={text} />
+      {Object.entries(links).map(([key, value]) => (
+        <ExternalLink
+          key={key}
+          text={key}
+          value={value}
+          onChange={(value) => changeLink(key, value)}
+        />
       ))}
     </StyledExternalLinks>
   );

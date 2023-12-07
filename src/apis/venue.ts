@@ -1,6 +1,17 @@
-import { SearchParams, VenueList, VenuePostBody } from '~/types/api.types';
+import {
+  SearchParams,
+  VenueDetail,
+  VenueList,
+  VenuePostBody,
+} from '~/types/api.types';
 import { getQueryString } from '~/utils/url';
 import { fetchData } from './fetchData';
+
+export const getVenueDetail = async (venueId: string): Promise<VenueDetail> => {
+  const response = await fetchData(`/api/venues/${venueId}`);
+
+  return response.json();
+};
 
 export const getVenueList = async ({
   word,

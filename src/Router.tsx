@@ -21,6 +21,7 @@ const router = createBrowserRouter(
       <Route path="venues" element={<VenuesPage />} />
       <Route path="venues/:venueId" element={<VenueDetail />} />
       <Route path="venues/post" element={<PostVenue />} />
+      <Route path="venues/edit/:venueId" element={<PostVenue />} />
 
       <Route path="shows" element={<ShowsPage />} />
       <Route path="shows/post" element={<div>공연 생성 및 수정</div>} />

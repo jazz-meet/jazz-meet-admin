@@ -1,18 +1,19 @@
 import styled from '@emotion/styled';
 import { Input } from '~/components/Input';
-import { POST_VENUE_NAMES } from '~/constants/formNames';
 
 type Props = {
-  type: string;
   text: string;
+  value: string;
+  onChange: (value: string) => void;
 };
 
-export const ExternalLink: React.FC<Props> = ({ type, text }) => {
+export const ExternalLink: React.FC<Props> = ({ text, value, onChange }) => {
   return (
     <StyledExternalLink>
       <StyledName>{text}</StyledName>
       <Input
-        name={POST_VENUE_NAMES.EXTERNAL_LINKS + type}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         placeholder="https://"
       />
     </StyledExternalLink>
