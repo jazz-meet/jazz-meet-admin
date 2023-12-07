@@ -73,4 +73,9 @@ export type ImageType = {
   url: string;
 };
 
+export type LocationType = Pick<
+  VenueDetail,
+  'roadNameAddress' | 'lotNumberAddress' | 'latitude' | 'longitude'
+> | null;
+
 export type Links = VenueDetail['links'];

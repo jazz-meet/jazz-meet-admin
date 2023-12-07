@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { getGeoLocation } from '~/apis/geoLocation';
-import { LocationType } from '~/pages/VenuesPage/PostVenue/PostVenueForm/Location';
+import { LocationType } from '~/types/api.types';
 
 type Props = {
   closeModal: () => void;

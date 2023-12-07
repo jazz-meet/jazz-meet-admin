@@ -1,12 +1,7 @@
 import { create } from 'zustand';
 import { getVenueDetail } from '~/apis/venue';
 import { WEEKDAYS } from '~/constants/date';
-import { Links, VenueDetail } from '~/types/api.types';
-
-type LocationType = Pick<
-  VenueDetail,
-  'roadNameAddress' | 'lotNumberAddress' | 'latitude' | 'longitude'
-> | null;
+import { Links, LocationType, VenueDetail } from '~/types/api.types';
 
 type VenueHours = VenueDetail['venueHours'];
 type VenueImage = VenueDetail['images'][number];
