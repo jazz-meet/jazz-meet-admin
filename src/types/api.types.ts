@@ -37,9 +37,28 @@ type ShowTime = {
 };
 
 export type InquiryParams = {
-  category?: InquiryCategories;
+  category: InquiryCategories;
 } & SearchParams;
 
 export type InquiryData = {
   inquiries: Inquiry[];
 } & Pagination;
+
+export type InquiryDetailData = {
+  id: number;
+  status: string;
+  content: string;
+  nickname: string;
+  createdAt: Date;
+  answer: {
+    id: number;
+    content: string;
+    createdAt: Date;
+    modifiedAt: Date;
+  };
+};
+
+export type InquiryAnswerParams = {
+  inquiryId: number;
+  content: string;
+};
