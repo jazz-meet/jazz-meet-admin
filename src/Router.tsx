@@ -8,7 +8,6 @@ import { BaseLayout } from './layouts/BaseLayout';
 import { InquiriesPage } from './pages/InquiriesPage';
 import { ShowsPage } from './pages/ShowsPage';
 import { VenuesPage } from './pages/VenuesPage';
-import { PostShow } from './pages/VenuesPage/PostShow';
 import { PostVenue } from './pages/VenuesPage/PostVenue';
 import { VenueDetail } from './pages/VenuesPage/VenueDetail';
 
@@ -25,7 +24,6 @@ const router = createBrowserRouter(
       <Route path="venues/edit/:venueId" element={<PostVenue />} />
 
       <Route path="shows" element={<ShowsPage />} />
-      <Route path="shows/post" element={<PostShow />} />
 
       <Route path="inquiries" element={<InquiriesPage />} />
     </Route>,
