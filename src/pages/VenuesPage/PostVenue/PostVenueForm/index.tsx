@@ -50,6 +50,9 @@ export const PostVenueForm: React.FC<Props> = () => {
     console.log(postVenueBody);
 
     // postVenue(postVenueBody);
+    // TODO: 1. 주소 검색 기능
+    // TODO: 2. 이미지 url 받아서 로드 기능
+    // TODO: 3. post 요청 store로 이동
   };
 
   return (
