@@ -4,8 +4,6 @@ import { Button } from '~/components/Button';
 export const VenueDetail = () => {
   return (
     <StyledVenuesPage>
-      <StyledHeader>{`공연장 > 공연장 상세조회`}</StyledHeader>
-
       <StyledButtons>
         <Button>수정</Button>
         <Button>삭제</Button>
@@ -102,12 +100,6 @@ const StyledVenuesPage = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const StyledHeader = styled.div`
-  border-bottom: 1px solid #000000;
-  font-size: 24px;
-  padding: 20px;
 `;
 
 const StyledButtons = styled.div`

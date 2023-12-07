@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
+import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 
 export const BaseLayout: React.FC = () => {
@@ -7,6 +8,7 @@ export const BaseLayout: React.FC = () => {
     <StyledLayout>
       <Sidebar />
       <StyledOutletWrapper>
+        <Header />
         <Outlet />
       </StyledOutletWrapper>
     </StyledLayout>
@@ -20,5 +22,5 @@ const StyledLayout = styled.div`
 `;
 
 const StyledOutletWrapper = styled.div`
-  width: calc(100% - var(--sidebar-width));
+  width: 100%;
 `;
