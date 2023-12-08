@@ -38,7 +38,7 @@ export const InquiriesDialog: React.FC<Props> = ({
 }) => {
   const [inquiryDetailData, setInquiryDetailData] =
     useState<InquiryDetailData>();
-  const [answer, setAnswer] = useState('');
+  const [answerContent, setAnswerContent] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [isCompleteInquiry, setIsCompleteInquiry] = useState(false);
 
@@ -50,8 +50,10 @@ export const InquiriesDialog: React.FC<Props> = ({
 
   useEffect(() => {
     if (inquiryDetailData) {
-      setAnswer(inquiryDetailData.answer.content || '');
-      setIsCompleteInquiry(!!inquiryDetailData.answer.content);
+      const hasAnswer = inquiryDetailData.answer !== null;
+
+      setAnswerContent(hasAnswer ? inquiryDetailData.answer!.content : '');
+      setIsCompleteInquiry(hasAnswer);
     }
   }, [inquiryDetailData]);
 
@@ -61,12 +63,14 @@ export const InquiriesDialog: React.FC<Props> = ({
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
-    setAnswer(inquiryDetailData?.answer.content || '');
+    setAnswerContent(inquiryDetailData?.answer?.content || '');
   };
 
   const deleteInquiry = async () => {
+    if (!inquiryDetailData || inquiryDetailData?.answer === null) return;
+
     const isDelete = confirm('답변을 삭제하시겠습니까?');
-    const answerId = inquiryDetailData?.answer.id;
+    const answerId = inquiryDetailData.answer.id;
 
     if (isDelete && answerId) {
       await deleteInquiryAnswer(answerId);
@@ -76,14 +80,14 @@ export const InquiriesDialog: React.FC<Props> = ({
 
   const submit = async () => {
     if (isCompleteInquiry && inquiryDetailData) {
-      const answerId = inquiryDetailData?.answer.id;
-      const params = { answerId: answerId, content: answer };
+      const answerId = inquiryDetailData?.answer!.id;
+      const params = { answerId: answerId, content: answerContent };
 
       await putInquiryAnswer(params);
     } else {
       const params = {
         inquiryId: id,
-        content: answer,
+        content: answerContent,
       };
 
       await postInquiryAnswer(params);
@@ -93,76 +97,90 @@ export const InquiriesDialog: React.FC<Props> = ({
   };
 
   const isDisabledSubmit = isCompleteInquiry
-    ? !(isEditMode && inquiryDetailData?.answer.content !== answer)
-    : !answer;
+    ? !(isEditMode && inquiryDetailData?.answer!.content !== answerContent) ||
+      !answerContent
+    : !answerContent;
 
-  // TODO : response 수정 배포되면 적용하기
   return (
     <BaseDialog style={InquiriesDialogStyle} isOpen={isOpen} onClose={onClose}>
-      <StyledDialogHead>
-        <StyledDialogTitle>{dialogTitle} 문의</StyledDialogTitle>
-        <StyledCloseButton onClick={onClose}>
-          <StyledCloseIcon />
-        </StyledCloseButton>
-      </StyledDialogHead>
+      {inquiryDetailData ? (
+        <>
+          <StyledDialogHead>
+            <StyledDialogTitle>{dialogTitle} 문의</StyledDialogTitle>
+            <StyledCloseButton onClick={onClose}>
+              <StyledCloseIcon />
+            </StyledCloseButton>
+          </StyledDialogHead>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">id</TableCell>
-              <TableCell align="center">상태</TableCell>
-              <TableCell align="center">닉네임</TableCell>
-              <TableCell align="center">날짜</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell align="center">1</TableCell>
-              <TableCell align="center">검토중</TableCell>
-              <TableCell align="center">쿤디</TableCell>
-              <TableCell align="center">2023. 12. 2. 오후 1:57:19</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <StyledDialogTitle>내용</StyledDialogTitle>
-      <StyledContent>{inquiryDetailData?.content}</StyledContent>
-      <StyledAnswerHeader>
-        <StyledDialogTitle>답변</StyledDialogTitle>
-        {isCompleteInquiry && (
-          <div>
-            <IconButton onClick={toggleEditMode}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={deleteInquiry}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        )}
-      </StyledAnswerHeader>
-      <StyledAnswer>
-        {isCompleteInquiry && !isEditMode ? (
-          <StyledContent style={{ height: '100%' }}>{answer}</StyledContent>
-        ) : (
-          <textarea
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-          />
-        )}
-      </StyledAnswer>
-      <StyledButtonWrapper>
-        <Button variant="contained" onClick={onClose}>
-          취소
-        </Button>
-        <Button
-          variant="contained"
-          disabled={isDisabledSubmit}
-          onClick={submit}
-        >
-          {isCompleteInquiry ? '수정' : '저장'}
-        </Button>
-      </StyledButtonWrapper>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">id</TableCell>
+                  <TableCell align="center">상태</TableCell>
+                  <TableCell align="center">닉네임</TableCell>
+                  <TableCell align="center">날짜</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell align="center">{inquiryDetailData.id}</TableCell>
+                  <TableCell align="center">
+                    {inquiryDetailData.status}
+                  </TableCell>
+                  <TableCell align="center">
+                    {inquiryDetailData.nickname}
+                  </TableCell>
+                  <TableCell align="center">
+                    {new Date(inquiryDetailData.createdAt).toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <StyledDialogTitle>내용</StyledDialogTitle>
+          <StyledContent>{inquiryDetailData.content}</StyledContent>
+          <StyledAnswerHeader>
+            <StyledDialogTitle>답변</StyledDialogTitle>
+            {isCompleteInquiry && (
+              <div>
+                <IconButton onClick={toggleEditMode}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={deleteInquiry}>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            )}
+          </StyledAnswerHeader>
+          <StyledAnswer>
+            {isCompleteInquiry && !isEditMode ? (
+              <StyledContent style={{ height: '100%' }}>
+                {answerContent}
+              </StyledContent>
+            ) : (
+              <textarea
+                value={answerContent}
+                onChange={(e) => setAnswerContent(e.target.value)}
+              />
+            )}
+          </StyledAnswer>
+          <StyledButtonWrapper>
+            <Button variant="contained" onClick={onClose}>
+              취소
+            </Button>
+            <Button
+              variant="contained"
+              disabled={isDisabledSubmit}
+              onClick={submit}
+            >
+              {isCompleteInquiry ? '수정' : '저장'}
+            </Button>
+          </StyledButtonWrapper>
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
     </BaseDialog>
   );
 };

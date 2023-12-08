@@ -55,7 +55,7 @@ export type InquiryDetailData = {
     content: string;
     createdAt: Date;
     modifiedAt: Date;
-  };
+  } | null;
 };
 
 export type InquiryAnswerParams = {
