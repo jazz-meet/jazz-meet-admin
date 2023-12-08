@@ -17,8 +17,8 @@ import { InquiriesDialog } from './InquiriesDialog';
 
 export const InquiriesPage: React.FC = () => {
   const [inquiryList, setInquiryList] = useState<InquiryData>();
-  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const isOpenDialog = !!selectedId;
   const [inquiryListParams, setInquiryListParams] = useState<InquiryParams>({
     category: '서비스',
     page: 1,
@@ -43,12 +43,10 @@ export const InquiriesPage: React.FC = () => {
   };
 
   const openDialog = (id: number) => {
-    setIsOpenDialog(true);
     setSelectedId(id);
   };
 
   const closeDialog = () => {
-    setIsOpenDialog(false);
     setSelectedId(null);
     getInquiry();
   };
