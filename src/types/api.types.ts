@@ -76,6 +76,10 @@ export type ImageType = {
 export type LocationType = Pick<
   VenueDetail,
   'roadNameAddress' | 'lotNumberAddress' | 'latitude' | 'longitude'
-> | null;
+>;
 
 export type Links = VenueDetail['links'];
+
+export type GeoLocation = {
+  addresses: LocationType[];
+} & Pagination;

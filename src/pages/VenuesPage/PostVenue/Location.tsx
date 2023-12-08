@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { createPortal } from 'react-dom';
 import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
 import { SearchLocationModal } from '~/components/SearchLocationModal';
@@ -24,14 +23,12 @@ export const Location: React.FC = () => {
         >
           주소 검색
         </Button>
-        {isModalOpen &&
-          createPortal(
-            <SearchLocationModal
-              closeModal={closeModal}
-              updateLocation={updateLocation}
-            />,
-            document.body,
-          )}
+
+        <SearchLocationModal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          updateLocation={updateLocation}
+        />
       </StyledFlexContainer>
       <Input disabled value={location?.roadNameAddress ?? ''} />
 

@@ -1,76 +1,138 @@
 import styled from '@emotion/styled';
+import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 import { getGeoLocation } from '~/apis/geoLocation';
-import { LocationType } from '~/types/api.types';
+import { BaseDialog } from '~/layouts/BaseLayout/BaseDialog';
+import { clickableStyle } from '~/styles/common';
+import { GeoLocation, LocationType } from '~/types/api.types';
+import { Button } from '../Button';
 
 type Props = {
+  isModalOpen: boolean;
   closeModal: () => void;
+
   updateLocation: (location: LocationType) => void;
 };
 
-export const SearchLocationModal: React.FC<Props> = () => {
-  // const [geoLocation, setGeoLocation] = useState();
-  // TODO: 네이버지도 검색 API 사용 예정, 도로명주소, 지번, 좌표값 받아오기
+export const SearchLocationModal: React.FC<Props> = ({
+  isModalOpen,
+  closeModal,
+  updateLocation,
+}) => {
+  const [searchWord, setSearchWord] = useState('');
+  const [geoLocation, setGeoLocation] = useState<GeoLocation>();
 
   const onSearchFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    const trimmedSearchWord = searchWord.trim();
 
-    const word = formData.get(SEARCH_WORD)?.toString().trim();
-
-    if (!word) {
+    if (!trimmedSearchWord) {
       alert('검색어를 입력해주세요.');
       return;
     }
 
-    const response = await getGeoLocation(word);
-    console.log(response);
+    const geoLocation = await getGeoLocation(trimmedSearchWord);
+
+    setGeoLocation(geoLocation);
   };
 
   return (
-    <StyledSearchLocationModal>
+    <BaseDialog isOpen={isModalOpen} onClose={closeModal}>
       <StyledSearchForm onSubmit={onSearchFormSubmit}>
         <label>주소검색 | </label>
-        <StyledInput name={SEARCH_WORD} />
+        <StyledInput
+          id={SEARCH_WORD}
+          value={searchWord}
+          onChange={(event) => setSearchWord(event.target.value)}
+        />
+
+        <ClearIcon onClick={() => setSearchWord('')} />
+        <button>
+          <SearchIcon />
+        </button>
       </StyledSearchForm>
-    </StyledSearchLocationModal>
+
+      <StyledSearchResult>
+        <StyledAddressContainer>
+          {geoLocation &&
+            geoLocation.addresses.length > 0 &&
+            geoLocation.addresses.map((address) => (
+              <StyledAddress
+                key={address.roadNameAddress}
+                onClick={() => {
+                  updateLocation(address);
+                  closeModal();
+                }}
+              >
+                <div>도로명</div>
+                <div>{address.roadNameAddress}</div>
+                <div>지번</div>
+                <div>{address.lotNumberAddress}</div>
+              </StyledAddress>
+            ))}
+        </StyledAddressContainer>
+      </StyledSearchResult>
+    </BaseDialog>
   );
 };
 
 const SEARCH_WORD = 'search-word';
 
-const StyledSearchLocationModal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffffff;
-  border-radius: 10px;
-
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
 const StyledSearchForm = styled.form`
   padding: 20px;
   font-size: 20px;
   font-weight: bold;
-  margin: 0;
+  margin-bottom: 20px;
   border-bottom: 1px solid #000000;
   display: flex;
   align-items: center;
   gap: 10px;
+
+  > label {
+    white-space: nowrap;
+  }
+
+  svg {
+    ${clickableStyle};
+  }
 `;
 
 const StyledInput = styled.input`
+  width: 100%;
   border: none;
   font-size: 20px;
   font-weight: bold;
   outline: none;
+`;
+
+const StyledAddressContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+
+const StyledAddress = styled(Button)`
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  > div:nth-of-type(1),
+  > div:nth-of-type(3) {
+    font-weight: bold;
+  }
+`;
+
+const StyledSearchResult = styled.div`
+  height: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;

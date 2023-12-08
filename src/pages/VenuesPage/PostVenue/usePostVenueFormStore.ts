@@ -42,7 +42,12 @@ type PostVenueFormStore = {
 const initialState = {
   name: '',
   images: [],
-  location: null,
+  location: {
+    roadNameAddress: '',
+    lotNumberAddress: '',
+    latitude: 0,
+    longitude: 0,
+  },
   phoneNumber: '',
   description: '',
   links: {
