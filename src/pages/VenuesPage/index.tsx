@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { getVenueList } from '~/apis/venue';
 import { PaginationBox } from '~/components/PaginationBox';
 import { SearchParams, VenueList } from '~/types/api.types';
+import { ActionButtons } from './ActionButtons';
 
 export const VenuesPage: React.FC = () => {
   const [venueList, setVenueList] = useState<VenueList>();
@@ -31,6 +32,7 @@ export const VenuesPage: React.FC = () => {
 
   return (
     <StyledVenuesPage>
+      <ActionButtons />
       {venueList ? (
         <>
           <TableContainer component={Paper}>
@@ -67,6 +69,7 @@ export const VenuesPage: React.FC = () => {
             currentPage={venueList.currentPage}
             onChange={onPageChange}
           />
+          <ActionButtons />
         </>
       ) : (
         <div>로딩중...</div>
