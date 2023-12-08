@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
+import { PATH } from './constants/path';
 import { BaseLayout } from './layouts/BaseLayout';
 import { InquiriesPage } from './pages/InquiriesPage';
 import { ShowsPage } from './pages/ShowsPage';
@@ -17,15 +18,15 @@ export const Router: React.FC = () => {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<BaseLayout />}>
-      <Route path="venues" element={<VenuesPage />} />
-      <Route path="venues/:venueId" element={<VenueDetail />} />
-      <Route path="venues/post" element={<PostVenue />} />
-      <Route path="venues/edit/:venueId" element={<PostVenue />} />
+    <Route path={PATH.HOME} element={<BaseLayout />}>
+      <Route path={PATH.VENUES} element={<VenuesPage />} />
+      <Route path={PATH.VENUES + '/:venueId'} element={<VenueDetail />} />
+      <Route path={PATH.VENUES_POST} element={<PostVenue />} />
+      <Route path={PATH.VENUES_EDIT + '/:venueId'} element={<PostVenue />} />
 
-      <Route path="shows" element={<ShowsPage />} />
+      <Route path={PATH.SHOWS} element={<ShowsPage />} />
 
-      <Route path="inquiries" element={<InquiriesPage />} />
+      <Route path={PATH.INQUIRIES} element={<InquiriesPage />} />
     </Route>,
   ),
 );
