@@ -31,8 +31,6 @@ export const VenuesPage: React.FC = () => {
 
   return (
     <StyledVenuesPage>
-      <StyledHeader>공연장</StyledHeader>
-
       {venueList ? (
         <>
           <TableContainer component={Paper}>
@@ -82,8 +80,4 @@ const StyledVenuesPage = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const StyledHeader = styled.div`
-  font-size: 24px;
 `;
