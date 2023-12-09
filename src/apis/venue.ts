@@ -26,6 +26,9 @@ export const getVenueList = async ({
 export const postVenue = async (body: VenuePostBody) => {
   const response = await fetchData('/api/venues', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(body),
   });
 
