@@ -110,24 +110,22 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
       })),
 
     initializeEditForm: async (id) => {
-      const response = await getVenueDetail(id);
-      console.log(response);
-
+      const venueDetail = await getVenueDetail(id);
       const { links } = get();
-      response.links.forEach((link) => (links[link.type] = link.url));
+      venueDetail.links.forEach((link) => (links[link.type] = link.url));
 
       set(() => ({
-        name: response.name,
-        images: response.images,
+        name: venueDetail.name,
+        images: venueDetail.images,
         location: {
-          roadNameAddress: response.roadNameAddress,
-          lotNumberAddress: response.lotNumberAddress,
-          latitude: response.latitude,
-          longitude: response.longitude,
+          roadNameAddress: venueDetail.roadNameAddress,
+          lotNumberAddress: venueDetail.lotNumberAddress,
+          latitude: venueDetail.latitude,
+          longitude: venueDetail.longitude,
         },
-        phoneNumber: response.phoneNumber,
-        description: response.description,
-        venueHours: response.venueHours,
+        phoneNumber: venueDetail.phoneNumber,
+        description: venueDetail.description,
+        venueHours: venueDetail.venueHours,
       }));
     },
 
@@ -156,7 +154,6 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
         !links?.some((link) => link.type === 'naverMap' && link.url) ||
         !(imageIds && imageIds.length > 0)
       ) {
-        console.log(get());
         alert('필수 정보를 모두 입력해주세요.');
         return;
       }
