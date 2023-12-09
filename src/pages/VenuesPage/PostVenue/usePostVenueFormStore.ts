@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getVenueDetail } from '~/apis/venue';
+import { getVenueDetail, postVenue } from '~/apis/venue';
 import { WEEKDAYS } from '~/constants/date';
 import { Links, LocationType, VenueDetail } from '~/types/api.types';
 
@@ -37,6 +37,8 @@ type PostVenueFormStore = {
   deleteVenueHour: (day: VenueHours[number]['day']) => void;
 
   initializeEditForm: (id: string) => void;
+
+  onVenuePost: () => Promise<void>;
 };
 
 const initialState = {
@@ -69,7 +71,7 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
     addImage: (images) =>
       set((state) => ({ images: [...state.images, ...images] })),
     deleteImage: (id) =>
-      set(({ images }) => ({
+      set(({ images: images }) => ({
         images: images.filter((image) => image.id !== id),
       })),
     getImageIds: () => get().images.map((image) => image.id),
@@ -127,6 +129,50 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
         description: response.description,
         venueHours: response.venueHours,
       }));
+    },
+
+    onVenuePost: async () => {
+      const {
+        name,
+        location,
+        phoneNumber,
+        description,
+        venueHours,
+        getLinks,
+        getImageIds,
+      } = get();
+      const links = getLinks();
+      const imageIds = getImageIds();
+
+      if (
+        !name ||
+        !location.latitude ||
+        !location.longitude ||
+        !location.lotNumberAddress ||
+        !location.roadNameAddress ||
+        !phoneNumber ||
+        !description ||
+        venueHours.length !== 7 ||
+        !links?.some((link) => link.type === 'naverMap' && link.url) ||
+        !(imageIds && imageIds.length > 0)
+      ) {
+        console.log(get());
+        alert('필수 정보를 모두 입력해주세요.');
+        return;
+      }
+
+      return postVenue({
+        name,
+        imageIds,
+        latitude: location.latitude,
+        longitude: location.longitude,
+        lotNumberAddress: location.lotNumberAddress,
+        roadNameAddress: location.roadNameAddress,
+        phoneNumber,
+        description,
+        links,
+        venueHours,
+      });
     },
   }),
 );

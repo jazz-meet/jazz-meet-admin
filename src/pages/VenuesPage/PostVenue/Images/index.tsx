@@ -7,7 +7,7 @@ import { Image } from './Image';
 
 export const Images: React.FC = () => {
   const { images, addImage, deleteImage } = usePostVenueFormStore(
-    ({ images, addImage, deleteImage }) => ({
+    ({ images: images, addImage, deleteImage }) => ({
       images,
       addImage,
       deleteImage,
@@ -26,7 +26,6 @@ export const Images: React.FC = () => {
         const response = await uploadImages([...fileList]);
 
         addImage(response.images);
-        // TODO: response.data에 있는 이미지 주소를 imageSources에 추가
       } catch (error) {
         console.error(error);
 

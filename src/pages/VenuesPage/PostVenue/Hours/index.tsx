@@ -44,6 +44,7 @@ export const Hours: React.FC = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={['SingleInputTimeRangeField']}>
             <SingleInputTimeRangeField
+              ampm={false}
               label="시작시간 - 종료시간"
               onChange={([startTime, endTime]) => {
                 if (!startTime || !endTime) {
@@ -54,7 +55,10 @@ export const Hours: React.FC = () => {
                   'HH:mm',
                 )} ~ ${endTime.format('HH:mm')}`;
               }}
-              defaultValue={[dayjs(), dayjs()]}
+              defaultValue={[
+                dayjs('2023-01-01T15:00:00Z'),
+                dayjs('2023-01-01T15:00:00Z'),
+              ]}
               disabled={checkboxChecked}
             />
           </DemoContainer>
@@ -103,6 +107,11 @@ const StyledHourInputContainer = styled.div`
 
   fieldset {
     border: 1px solid #000000;
+  }
+
+  .MuiFormControl-root.MuiTextField-root {
+    width: 130px;
+    min-width: 130px;
   }
 `;
 
