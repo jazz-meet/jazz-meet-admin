@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getVenueList } from '~/apis/venue';
 import { PaginationBox } from '~/components/PaginationBox';
 import { SearchParams, VenueList } from '~/types/api.types';
@@ -16,6 +17,11 @@ export const VenuesPage: React.FC = () => {
   const [venueListParams, setVenueListParams] = useState<SearchParams>({
     page: 1,
   });
+  const navigate = useNavigate();
+
+  const onPageChange = (_: React.ChangeEvent<unknown>, page: number) => {
+    setVenueListParams((prev) => ({ ...prev, page }));
+  };
 
   useEffect(() => {
     (async () => {
@@ -25,8 +31,8 @@ export const VenuesPage: React.FC = () => {
     })();
   }, [venueListParams]);
 
-  const onPageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-    setVenueListParams((prev) => ({ ...prev, page }));
+  const onRowClick = (id: number) => {
+    navigate(`/venues/edit/${id}`);
   };
 
   return (
@@ -53,6 +59,7 @@ export const VenuesPage: React.FC = () => {
                         cursor: 'pointer',
                       },
                     }}
+                    onClick={() => onRowClick(venue.id)}
                   >
                     <TableCell>{venue.id}</TableCell>
                     <TableCell>{venue.name}</TableCell>
