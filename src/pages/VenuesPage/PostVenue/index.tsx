@@ -37,7 +37,7 @@ export const PostVenue: React.FC<Props> = () => {
       <ExternalLinks />
       <Hours />
       <Description />
-      <ActionButtons />
+      <ActionButtons venueId={venueId} />
     </StyledPostVenue>
   );
 };

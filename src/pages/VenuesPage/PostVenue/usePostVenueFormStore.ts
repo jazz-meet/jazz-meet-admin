@@ -1,7 +1,12 @@
 import { create } from 'zustand';
-import { getVenueDetail, postVenue } from '~/apis/venue';
+import { editVenue, getVenueDetail, postVenue } from '~/apis/venue';
 import { WEEKDAYS } from '~/constants/date';
-import { Links, LocationType, VenueDetail } from '~/types/api.types';
+import {
+  Links,
+  LocationType,
+  VenueDetail,
+  VenuePostBody,
+} from '~/types/api.types';
 
 type VenueHours = VenueDetail['venueHours'];
 type VenueImage = VenueDetail['images'][number];
@@ -38,7 +43,10 @@ type PostVenueFormStore = {
 
   initializeEditForm: (id: string) => void;
 
-  onVenuePost: () => Promise<void>;
+  getVenuePostBody: () => VenuePostBody;
+
+  onVenuePost: () => Promise<{ id: number } | undefined>;
+  onVenueEdit: (id: string) => Promise<{ id: number } | undefined>;
 };
 
 const initialState = {
@@ -129,7 +137,7 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
       }));
     },
 
-    onVenuePost: async () => {
+    getVenuePostBody: () => {
       const {
         name,
         location,
@@ -154,11 +162,10 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
         !links?.some((link) => link.type === 'naverMap' && link.url) ||
         !(imageIds && imageIds.length > 0)
       ) {
-        alert('필수 정보를 모두 입력해주세요.');
-        return;
+        throw new Error('필수 정보를 모두 입력해주세요.');
       }
 
-      return postVenue({
+      return {
         name,
         imageIds,
         latitude: location.latitude,
@@ -169,7 +176,31 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
         description,
         links,
         venueHours,
-      });
+      };
+    },
+
+    onVenuePost: async () => {
+      try {
+        const body = get().getVenuePostBody();
+
+        return await postVenue(body);
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
+      }
+    },
+
+    onVenueEdit: async (id: string) => {
+      try {
+        const body = get().getVenuePostBody();
+
+        return await editVenue(body, id);
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
+      }
     },
   }),
 );
