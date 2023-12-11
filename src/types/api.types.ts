@@ -33,9 +33,9 @@ export type ShowList = {
   shows: Show[];
 } & Pagination;
 
-export type InquiryParams = SearchParams & {
-  category?: InquiryCategories;
-};
+export type InquiryParams = {
+  category: InquiryCategories;
+} & SearchParams;
 
 export type InquiryData = {
   inquiries: Inquiry[];
@@ -83,3 +83,21 @@ export type Links = VenueDetail['links'];
 export type GeoLocation = {
   addresses: LocationType[];
 } & Pagination;
+export type InquiryDetailData = {
+  id: number;
+  status: string;
+  content: string;
+  nickname: string;
+  createdAt: Date;
+  answer: {
+    id: number;
+    content: string;
+    createdAt: Date;
+    modifiedAt: Date;
+  } | null;
+};
+
+export type InquiryAnswerParams = {
+  inquiryId: number;
+  content: string;
+};
