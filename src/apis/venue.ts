@@ -51,3 +51,9 @@ export const editVenue = async (
 
   return response.json();
 };
+
+export const deleteVenue = async (venueId: string) => {
+  return fetchData(`/api/venues/${venueId}`, {
+    method: 'DELETE',
+  });
+};
