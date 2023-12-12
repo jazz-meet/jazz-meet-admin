@@ -23,9 +23,9 @@ export const VenueDetail = () => {
 
   return (
     <>
-      {venueDetail ? (
+      {venueId && venueDetail ? (
         <StyledVenuesPage>
-          <Buttons />
+          <Buttons venueId={venueId} venueName={venueDetail.name} />
           <StyledBody>
             <StyledTitle>공연장 id</StyledTitle>
             <StyledContent>{venueDetail.id}</StyledContent>
@@ -84,7 +84,7 @@ export const VenueDetail = () => {
               />
             </StyledMapWrapper>
           </StyledBody>
-          <Buttons />
+          <Buttons venueId={venueId} venueName={venueDetail.name} />
         </StyledVenuesPage>
       ) : (
         <div>로딩중...</div>
