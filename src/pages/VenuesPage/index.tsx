@@ -33,7 +33,7 @@ export const VenuesPage: React.FC = () => {
   }, [venueListParams]);
 
   const onRowClick = (id: number) => {
-    navigate(`/venues/edit/${id}`);
+    navigate(`/venues/${id}`);
   };
 
   return (
