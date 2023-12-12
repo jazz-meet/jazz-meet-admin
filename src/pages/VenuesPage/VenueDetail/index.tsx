@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getVenueDetail } from '~/apis/venue';
+import { Map } from '~/components/Map';
 import { VenueDetail as VenueDetailData } from '~/types/api.types';
 import { Buttons } from './Buttons';
 
@@ -74,7 +75,14 @@ export const VenueDetail = () => {
             <StyledContent>{venueDetail.description}</StyledContent>
 
             <StyledTitle>공연장 좌표</StyledTitle>
-            <StyledContent>lat: 37.501, lng: 127.043</StyledContent>
+            <StyledMapWrapper>
+              <Map
+                initCoordinate={{
+                  latitude: venueDetail.latitude,
+                  longitude: venueDetail.longitude,
+                }}
+              />
+            </StyledMapWrapper>
           </StyledBody>
           <Buttons />
         </StyledVenuesPage>
@@ -150,4 +158,9 @@ const StyledVenueHour = styled.div`
 
 const StyledFontBold = styled.div`
   font-weight: bold;
+`;
+
+const StyledMapWrapper = styled.div`
+  width: 100%;
+  height: 500px;
 `;
