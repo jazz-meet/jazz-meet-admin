@@ -23,7 +23,7 @@ export const ActionButtons: React.FC<Props> = ({ venueId }) => {
 
       if (data?.id) {
         alert(`성공적으로 ${isEdit ? '수정' : '생성'}되었습니다.`);
-        navigate(`/venues/edit/${venueId}`);
+        navigate(`/venues/${venueId}`);
       }
     })();
   };
