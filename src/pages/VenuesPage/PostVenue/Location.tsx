@@ -7,8 +7,23 @@ import { usePostVenueFormStore } from './usePostVenueFormStore';
 
 export const Location: React.FC = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const { location, updateLocation } = usePostVenueFormStore(
-    ({ location, updateLocation }) => ({ location, updateLocation }),
+  const {
+    location,
+    updateLocation,
+    changeRoadNameAddress,
+    changeLotNumberAddress,
+  } = usePostVenueFormStore(
+    ({
+      location,
+      updateLocation,
+      changeRoadNameAddress,
+      changeLotNumberAddress,
+    }) => ({
+      location,
+      updateLocation,
+      changeRoadNameAddress,
+      changeLotNumberAddress,
+    }),
   );
 
   return (
@@ -30,10 +45,16 @@ export const Location: React.FC = () => {
           updateLocation={updateLocation}
         />
       </StyledFlexContainer>
-      <Input disabled value={location?.roadNameAddress ?? ''} />
+      <Input
+        value={location?.roadNameAddress ?? ''}
+        onChange={({ target }) => changeRoadNameAddress(target.value)}
+      />
 
       <label>지번</label>
-      <Input disabled value={location?.lotNumberAddress ?? ''} />
+      <Input
+        value={location?.lotNumberAddress ?? ''}
+        onChange={({ target }) => changeLotNumberAddress(target.value)}
+      />
 
       <label>공연장 좌표</label>
       <Input

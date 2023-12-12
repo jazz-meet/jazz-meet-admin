@@ -29,6 +29,8 @@ type PostVenueFormStore = {
   getImageIds: () => VenueImage['id'][] | undefined;
 
   updateLocation: (location: LocationType) => void;
+  changeRoadNameAddress: (value: string) => void;
+  changeLotNumberAddress: (value: string) => void;
 
   changePhoneNumber: (phoneNumber: string) => void;
 
@@ -85,6 +87,10 @@ export const usePostVenueFormStore = create<PostVenueFormStore>()(
     getImageIds: () => get().images.map((image) => image.id),
 
     updateLocation: (location) => set(() => ({ location })),
+    changeRoadNameAddress: (roadNameAddress) =>
+      set(() => ({ location: { ...get().location, roadNameAddress } })),
+    changeLotNumberAddress: (lotNumberAddress) =>
+      set(() => ({ location: { ...get().location, lotNumberAddress } })),
 
     changePhoneNumber: (phoneNumber) => set(() => ({ phoneNumber })),
 
