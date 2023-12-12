@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
+import { Button } from '~/components/Button';
 
-export const AdminVenueDetail = () => {
+export const VenueDetail = () => {
   return (
     <StyledVenuesPage>
       <StyledButtons>
-        <StyledButton>수정</StyledButton>
-        <StyledButton>삭제</StyledButton>
-        <StyledButton>목록</StyledButton>
+        <Button>수정</Button>
+        <Button>삭제</Button>
+        <Button>목록</Button>
       </StyledButtons>
       <StyledBody>
         <StyledTitle>공연장 id</StyledTitle>
@@ -27,7 +28,7 @@ export const AdminVenueDetail = () => {
             </StyledImageWrapper>
             <StyledImageContent>
               <StyledFileName>1.jpg</StyledFileName>
-              <StyledButton>삭제</StyledButton>
+              <Button>삭제</Button>
             </StyledImageContent>
           </StyledImageContainer>
           <StyledImageContainer>
@@ -40,7 +41,7 @@ export const AdminVenueDetail = () => {
             </StyledImageWrapper>
             <StyledImageContent>
               <StyledFileName>2.jpg</StyledFileName>
-              <StyledButton>삭제</StyledButton>
+              <Button>삭제</Button>
             </StyledImageContent>
           </StyledImageContainer>
 
@@ -54,7 +55,7 @@ export const AdminVenueDetail = () => {
             </StyledImageWrapper>
             <StyledImageContent>
               <StyledFileName>3.jpg</StyledFileName>
-              <StyledButton>삭제</StyledButton>
+              <Button>삭제</Button>
             </StyledImageContent>
           </StyledImageContainer>
         </StyledContent>
@@ -107,23 +108,9 @@ const StyledButtons = styled.div`
   gap: 10px;
 `;
 
-const StyledButton = styled.button`
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #000000;
-  background-color: #ffffff;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 0 #000000;
-
-  &:active {
-    box-shadow: 1px 1px 0 0 #000000;
-    transform: translate(1px, 1px);
-  }
-`;
-
 const StyledBody = styled.div`
   margin: 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #000000;
   box-shadow: 2px 2px 0 0 #000000;
   display: grid;
