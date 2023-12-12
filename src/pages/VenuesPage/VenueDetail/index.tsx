@@ -1,14 +1,10 @@
 import styled from '@emotion/styled';
-import { Button } from '~/components/Button';
+import { Buttons } from './Buttons';
 
 export const VenueDetail = () => {
   return (
     <StyledVenuesPage>
-      <StyledButtons>
-        <Button>수정</Button>
-        <Button>삭제</Button>
-        <Button>목록</Button>
-      </StyledButtons>
+      <Buttons />
       <StyledBody>
         <StyledTitle>공연장 id</StyledTitle>
         <StyledContent>1</StyledContent>
@@ -17,48 +13,57 @@ export const VenueDetail = () => {
         <StyledContent>블루밍 재즈바</StyledContent>
 
         <StyledTitle>공연장 이미지</StyledTitle>
-        <StyledContent>
-          <StyledImageContainer>
-            <StyledImageWrapper>
-              <StyledImage
-                src={
-                  'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
-                }
-              />
-            </StyledImageWrapper>
-            <StyledImageContent>
-              <StyledFileName>1.jpg</StyledFileName>
-              <Button>삭제</Button>
-            </StyledImageContent>
-          </StyledImageContainer>
-          <StyledImageContainer>
-            <StyledImageWrapper>
-              <StyledImage
-                src={
-                  'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_140%2F1617367262454YU3Hd_JPEG%2FNsOFazqvYXyXDXceOEjH3cm6.jpg'
-                }
-              />
-            </StyledImageWrapper>
-            <StyledImageContent>
-              <StyledFileName>2.jpg</StyledFileName>
-              <Button>삭제</Button>
-            </StyledImageContent>
-          </StyledImageContainer>
-
-          <StyledImageContainer>
-            <StyledImageWrapper>
-              <StyledImage
-                src={
-                  'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_38%2F1617367286324NVjl6_JPEG%2FfGewLoyOLnylRJcH_egqNlsr.jpg'
-                }
-              />
-            </StyledImageWrapper>
-            <StyledImageContent>
-              <StyledFileName>3.jpg</StyledFileName>
-              <Button>삭제</Button>
-            </StyledImageContent>
-          </StyledImageContainer>
-        </StyledContent>
+        <StyledImageContainer>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+          <StyledImageWrapper>
+            <img
+              src={
+                'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
+              }
+            />
+          </StyledImageWrapper>
+        </StyledImageContainer>
 
         <StyledTitle>도로명 주소</StyledTitle>
         <StyledContent>서울 강남구 테헤란로19길 21 지하1층</StyledContent>
@@ -92,6 +97,7 @@ export const VenueDetail = () => {
         <StyledTitle>공연장 좌표</StyledTitle>
         <StyledContent>lat: 37.501, lng: 127.043</StyledContent>
       </StyledBody>
+      <Buttons />
     </StyledVenuesPage>
   );
 };
@@ -100,12 +106,6 @@ const StyledVenuesPage = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const StyledButtons = styled.div`
-  padding: 20px;
-  display: flex;
-  gap: 10px;
 `;
 
 const StyledBody = styled.div`
@@ -136,33 +136,25 @@ const StyledContent = styled.div`
 `;
 
 const StyledImageContainer = styled.div`
-  border-radius: 5px;
-  border: 1px solid #000000;
-  box-shadow: 2px 2px 0 0 #000000;
+  overflow-x: scroll;
+  height: 200px;
+  padding: 0 10px;
   display: flex;
+  align-items: center;
 `;
 
 const StyledImageWrapper = styled.div`
-  width: 200px;
-  height: 200px;
-  padding: 10px;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  user-select: none;
+  overflow: hidden;
   flex-shrink: 0;
-  border-right: 1px solid #dbe1e4;
-`;
+  margin-right: 10px;
+  position: relative;
 
-const StyledImageContent = styled.div`
-  padding: 10px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
-
-const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-`;
-
-const StyledFileName = styled.div``;
