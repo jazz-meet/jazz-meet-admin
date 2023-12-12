@@ -1,3 +1,4 @@
+import { AutoSizingTextArea } from '~/components/AutoSizingTextArea';
 import { usePostVenueFormStore } from './usePostVenueFormStore';
 
 export const Description: React.FC = () => {
@@ -11,11 +12,11 @@ export const Description: React.FC = () => {
   return (
     <>
       <label htmlFor={DESCRIPTION}>공연장 설명</label>
-      <textarea
+      <AutoSizingTextArea
         id={DESCRIPTION}
-        placeholder="공연장 설명을 입력해주세요."
         value={description}
-        onChange={({ target }) => changeDescription(target.value)}
+        onChange={changeDescription}
+        placeholder="공연장 설명을 입력해주세요."
       />
     </>
   );
