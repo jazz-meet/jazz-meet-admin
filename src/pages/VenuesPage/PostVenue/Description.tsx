@@ -11,7 +11,9 @@ export const Description: React.FC = () => {
 
   return (
     <>
-      <label htmlFor={DESCRIPTION}>공연장 설명</label>
+      <label htmlFor={DESCRIPTION}>
+        {'공연장 설명 (1,000자 이내로 작성해주세요.)'}
+      </label>
       <AutoSizingTextArea
         id={DESCRIPTION}
         value={description}
