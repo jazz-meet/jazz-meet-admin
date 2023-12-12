@@ -19,7 +19,7 @@ export const VenueDetail = () => {
       const data = await getVenueDetail(venueId);
       setVenueDetail(data);
     })();
-  }, []);
+  }, [venueId]);
 
   return (
     <>
