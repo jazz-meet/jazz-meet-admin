@@ -1,98 +1,95 @@
 import styled from '@emotion/styled';
-import { Button } from '~/components/Button';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getVenueDetail } from '~/apis/venue';
+import { Map } from '~/components/Map';
+import { VenueDetail as VenueDetailData } from '~/types/api.types';
+import { Buttons } from './Buttons';
 
 export const VenueDetail = () => {
+  const { venueId } = useParams();
+  const [venueDetail, setVenueDetail] = useState<VenueDetailData>();
+
+  useEffect(() => {
+    (async () => {
+      if (!venueId) {
+        return;
+      }
+
+      const data = await getVenueDetail(venueId);
+      setVenueDetail(data);
+    })();
+  }, [venueId]);
+
   return (
-    <StyledVenuesPage>
-      <StyledButtons>
-        <Button>수정</Button>
-        <Button>삭제</Button>
-        <Button>목록</Button>
-      </StyledButtons>
-      <StyledBody>
-        <StyledTitle>공연장 id</StyledTitle>
-        <StyledContent>1</StyledContent>
+    <>
+      {venueId && venueDetail ? (
+        <StyledVenuesPage>
+          <Buttons venueId={venueId} venueName={venueDetail.name} />
+          <StyledBody>
+            <StyledTitle>공연장 id</StyledTitle>
+            <StyledContent>{venueDetail.id}</StyledContent>
 
-        <StyledTitle>공연장명</StyledTitle>
-        <StyledContent>블루밍 재즈바</StyledContent>
+            <StyledTitle>공연장명</StyledTitle>
+            <StyledContent>{venueDetail.name}</StyledContent>
 
-        <StyledTitle>공연장 이미지</StyledTitle>
-        <StyledContent>
-          <StyledImageContainer>
-            <StyledImageWrapper>
-              <StyledImage
-                src={
-                  'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_134%2F1617367270275ohjIe_JPEG%2FCiOfR7-z517aRHL5RBhE9ny2.jpg'
-                }
+            <StyledTitle>공연장 이미지</StyledTitle>
+            <StyledImageContainer>
+              {venueDetail.images.map((image) => (
+                <StyledImageWrapper key={image.id}>
+                  <img src={image.url} />
+                </StyledImageWrapper>
+              ))}
+            </StyledImageContainer>
+
+            <StyledTitle>도로명 주소</StyledTitle>
+            <StyledContent>{venueDetail.roadNameAddress}</StyledContent>
+
+            <StyledTitle>지번</StyledTitle>
+            <StyledContent>{venueDetail.lotNumberAddress}</StyledContent>
+
+            <StyledTitle>전화번호</StyledTitle>
+            <StyledContent>{venueDetail.phoneNumber}</StyledContent>
+
+            <StyledTitle>링크</StyledTitle>
+            <StyledContent>
+              {venueDetail.links.map((link) => (
+                <React.Fragment key={link.type}>
+                  <StyledFontBold>{link.type}</StyledFontBold>
+                  <div>{link.url}</div>
+                </React.Fragment>
+              ))}
+            </StyledContent>
+
+            <StyledTitle>영업 시간</StyledTitle>
+            <StyledContent>
+              {venueDetail.venueHours.map((venueHour) => (
+                <StyledVenueHour key={venueHour.day}>
+                  <StyledFontBold>{venueHour.day + ' |'}</StyledFontBold>
+                  <div>{venueHour.businessHours}</div>
+                </StyledVenueHour>
+              ))}
+            </StyledContent>
+
+            <StyledTitle>공연장 설명</StyledTitle>
+            <StyledContent>{venueDetail.description}</StyledContent>
+
+            <StyledTitle>공연장 좌표</StyledTitle>
+            <StyledMapWrapper>
+              <Map
+                initCoordinate={{
+                  latitude: venueDetail.latitude,
+                  longitude: venueDetail.longitude,
+                }}
               />
-            </StyledImageWrapper>
-            <StyledImageContent>
-              <StyledFileName>1.jpg</StyledFileName>
-              <Button>삭제</Button>
-            </StyledImageContent>
-          </StyledImageContainer>
-          <StyledImageContainer>
-            <StyledImageWrapper>
-              <StyledImage
-                src={
-                  'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_140%2F1617367262454YU3Hd_JPEG%2FNsOFazqvYXyXDXceOEjH3cm6.jpg'
-                }
-              />
-            </StyledImageWrapper>
-            <StyledImageContent>
-              <StyledFileName>2.jpg</StyledFileName>
-              <Button>삭제</Button>
-            </StyledImageContent>
-          </StyledImageContainer>
-
-          <StyledImageContainer>
-            <StyledImageWrapper>
-              <StyledImage
-                src={
-                  'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210402_38%2F1617367286324NVjl6_JPEG%2FfGewLoyOLnylRJcH_egqNlsr.jpg'
-                }
-              />
-            </StyledImageWrapper>
-            <StyledImageContent>
-              <StyledFileName>3.jpg</StyledFileName>
-              <Button>삭제</Button>
-            </StyledImageContent>
-          </StyledImageContainer>
-        </StyledContent>
-
-        <StyledTitle>도로명 주소</StyledTitle>
-        <StyledContent>서울 강남구 테헤란로19길 21 지하1층</StyledContent>
-
-        <StyledTitle>지번</StyledTitle>
-        <StyledContent>역삼동 637-29</StyledContent>
-
-        <StyledTitle>전화번호</StyledTitle>
-        <StyledContent>0507-1466-5026</StyledContent>
-
-        <StyledTitle>링크</StyledTitle>
-        <StyledContent>
-          <div>naverMap</div>
-          <div>https://naver.me/5NderYmB</div>
-          <div>instagram</div>
-          <div>https://www.instagram.com/blueming_jazz/</div>
-        </StyledContent>
-
-        <StyledTitle>영업 시간</StyledTitle>
-        <StyledContent>
-          <div>월요일</div>
-          <div>10:00 ~ 18:00</div>
-          <div>화요일</div>
-          <div>휴무</div>
-          <div>...</div>
-        </StyledContent>
-
-        <StyledTitle>공연장 설명</StyledTitle>
-        <StyledContent>라이브 재즈바 블루밍입니다.</StyledContent>
-
-        <StyledTitle>공연장 좌표</StyledTitle>
-        <StyledContent>lat: 37.501, lng: 127.043</StyledContent>
-      </StyledBody>
-    </StyledVenuesPage>
+            </StyledMapWrapper>
+          </StyledBody>
+          <Buttons venueId={venueId} venueName={venueDetail.name} />
+        </StyledVenuesPage>
+      ) : (
+        <div>로딩중...</div>
+      )}
+    </>
   );
 };
 
@@ -100,12 +97,6 @@ const StyledVenuesPage = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const StyledButtons = styled.div`
-  padding: 20px;
-  display: flex;
-  gap: 10px;
 `;
 
 const StyledBody = styled.div`
@@ -133,36 +124,43 @@ const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  white-space: pre-wrap;
 `;
 
 const StyledImageContainer = styled.div`
-  border-radius: 5px;
-  border: 1px solid #000000;
-  box-shadow: 2px 2px 0 0 #000000;
+  overflow-x: scroll;
+  height: 200px;
+  padding: 0 10px;
   display: flex;
+  align-items: center;
 `;
 
 const StyledImageWrapper = styled.div`
-  width: 200px;
-  height: 200px;
-  padding: 10px;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  user-select: none;
+  overflow: hidden;
   flex-shrink: 0;
-  border-right: 1px solid #dbe1e4;
+  margin-right: 10px;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
-const StyledImageContent = styled.div`
-  padding: 10px;
-  box-sizing: border-box;
+const StyledVenueHour = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  justify-content: center;
 `;
 
-const StyledImage = styled.img`
+const StyledFontBold = styled.div`
+  font-weight: bold;
+`;
+
+const StyledMapWrapper = styled.div`
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: 500px;
 `;
-
-const StyledFileName = styled.div``;
