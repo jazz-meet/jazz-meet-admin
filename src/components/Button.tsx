@@ -1,17 +1,6 @@
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-export const clickableStyle = css`
-  &:hover {
-    cursor: pointer;
-    opacity: 0.7;
-  }
-
-  &:active {
-    opacity: 0.5;
-  }
-`;
-
-export const buttonStyle = css`
+export const Button = styled.button`
   min-width: 37.5px;
   min-height: 37.5px;
   padding: 10px;

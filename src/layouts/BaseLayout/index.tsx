@@ -16,12 +16,11 @@ export const BaseLayout: React.FC = () => {
 };
 
 const StyledLayout = styled.div`
-  width: 100vw;
   height: 100vh;
   overflow-y: auto;
   display: flex;
 `;
 
 const StyledOutletWrapper = styled.div`
-  width: 100%;
+  width: calc(100% - var(--sidebar-width));
 `;
