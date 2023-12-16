@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,11 +8,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { getShowList } from '~/apis/shows';
 import { PaginationBox } from '~/components/PaginationBox';
+import { PATH } from '~/constants/path';
 import { SearchParams, ShowList } from '~/types/api.types';
 
 export const ShowsPage: React.FC = () => {
+  const navigate = useNavigate();
   const [showList, setShowList] = useState<ShowList>();
   const [showListParams, setShowListParams] = useState<SearchParams>({
     page: 1,
@@ -29,10 +33,23 @@ export const ShowsPage: React.FC = () => {
     setShowListParams((prev) => ({ ...prev, page }));
   };
 
+  const goDetail = (id: number) => {
+    navigate(`${PATH.SHOWS}/${id}`);
+  };
+
+  const goPost = () => {
+    navigate(`${PATH.SHOWS_POST}`);
+  };
+
   return (
     <StyledVenuesPage>
       {showList ? (
         <>
+          <div>
+            <Button variant="contained" onClick={goPost}>
+              공연 추가
+            </Button>
+          </div>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -45,27 +62,23 @@ export const ShowsPage: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {showList.shows.map((venue) => (
-                  <TableRow
-                    key={venue.id}
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 },
-                      ':hover': {
-                        backgroundColor: '#DBE1E4',
-                        cursor: 'pointer',
-                      },
+                {showList.shows.map((show) => (
+                  <StyledTableRow
+                    key={show.id}
+                    onClick={() => {
+                      goDetail(show.id);
                     }}
                   >
-                    <TableCell>{venue.id}</TableCell>
-                    <TableCell>{venue.teamName}</TableCell>
+                    <TableCell>{show.id}</TableCell>
+                    <TableCell>{show.teamName}</TableCell>
                     <TableCell align="center">
-                      {new Date(venue.startTime).toLocaleString()}
+                      {new Date(show.startTime).toLocaleString()}
                     </TableCell>
                     <TableCell align="center">
-                      {new Date(venue.endTime).toLocaleString()}
+                      {new Date(show.endTime).toLocaleString()}
                     </TableCell>
-                    <TableCell align="center">{venue.venueName}</TableCell>
-                  </TableRow>
+                    <TableCell align="center">{show.venueName}</TableCell>
+                  </StyledTableRow>
                 ))}
               </TableBody>
             </Table>
@@ -88,4 +101,16 @@ const StyledVenuesPage = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  flex: 1;
+`;
+
+const StyledTableRow = styled(TableRow)`
+  &:last-child td,
+  &:last-child th {
+    border: 0;
+  }
+  :hover {
+    background-color: '#DBE1E4';
+    cursor: pointer;
+  }
 `;

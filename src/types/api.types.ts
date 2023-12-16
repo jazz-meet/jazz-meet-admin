@@ -33,6 +33,27 @@ export type ShowList = {
   shows: Show[];
 } & Pagination;
 
+export type ShowDetailType = {
+  id: number;
+  teamName: string;
+  venueName: string;
+  description: string;
+  poster: {
+    id: number;
+    url: string;
+  };
+  startTime: Date;
+  endTime: Date;
+};
+
+export type ShowDetailRequest = {
+  teamName: string;
+  description: string;
+  posterId: number;
+  startTime: Date;
+  endTime: Date;
+};
+
 export type InquiryParams = {
   category: InquiryCategories;
 } & SearchParams;
@@ -100,4 +121,11 @@ export type InquiryDetailData = {
 export type InquiryAnswerParams = {
   inquiryId: number;
   content: string;
+};
+
+export type UploadImageRes = {
+  images: {
+    id: number;
+    url: string;
+  }[];
 };
