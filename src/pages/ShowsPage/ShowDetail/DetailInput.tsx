@@ -7,7 +7,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postShowDetail, putShowDetail } from '~/apis/shows';
+import { postShow, putShow } from '~/apis/shows';
 import { PATH } from '~/constants/path';
 import { useText } from '~/hook/useText';
 import { ShowDetailType } from '~/types/api.types';
@@ -114,12 +114,12 @@ export const DetailInput: React.FC<Props> = ({
 
     if (isEditMode && setNewData) {
       const showId = showDetailData.id;
-      const data = await putShowDetail({ showId: showId, body: body });
+      const data = await putShow({ showId: showId, body: body });
 
       closePost();
       setNewData(data);
     } else if (venueId) {
-      const data = await postShowDetail({ venueId: venueId, body: body });
+      const data = await postShow({ venueId: venueId, body: body });
 
       navigate(`${PATH.SHOWS}/${data.id}`);
     }

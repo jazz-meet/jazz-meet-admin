@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { getShowDetail } from '~/apis/shows';
+import { getShow } from '~/apis/shows';
 import { ShowDetailType } from '~/types/api.types';
 import { DetailContent } from './DetailContent';
 import { DetailInput } from './DetailInput';
@@ -13,12 +13,6 @@ export const ShowDetail: React.FC = () => {
     null,
   );
   const [isEditMode, setIsEditMode] = useState(false);
-
-  const getShow = useCallback(async () => {
-    const inquiryList = await getShowDetail(Number(showId));
-
-    setShowDetailData(inquiryList);
-  }, [showId]);
 
   const onEdit = () => {
     setIsEditMode(true);
@@ -33,8 +27,12 @@ export const ShowDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    getShow();
-  }, [getShow]);
+    (async () => {
+      const inquiryList = await getShow(Number(showId));
+
+      setShowDetailData(inquiryList);
+    })();
+  }, [showId]);
 
   return (
     <StyledShowDetailPage>

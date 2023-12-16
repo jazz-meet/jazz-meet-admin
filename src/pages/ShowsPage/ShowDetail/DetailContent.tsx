@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { deleteShowDetail } from '~/apis/shows';
+import { deleteShow } from '~/apis/shows';
 import { PATH } from '~/constants/path';
 import { ShowDetailType } from '~/types/api.types';
 
@@ -15,11 +15,11 @@ type Props = {
 export const DetailContent: React.FC<Props> = ({ showDetailData, onEdit }) => {
   const navigate = useNavigate();
 
-  const deleteShow = async () => {
+  const onDeleteShow = async () => {
     const isDelete = confirm('공연을 삭제하시겠습니까?');
 
     if (isDelete) {
-      await deleteShowDetail(Number(showDetailData.id));
+      await deleteShow(Number(showDetailData.id));
       navigate(`${PATH.SHOWS}`);
     }
   };
@@ -57,7 +57,7 @@ export const DetailContent: React.FC<Props> = ({ showDetailData, onEdit }) => {
             <IconButton onClick={onEdit}>
               <EditIcon />
             </IconButton>
-            <IconButton onClick={deleteShow}>
+            <IconButton onClick={onDeleteShow}>
               <DeleteIcon />
             </IconButton>
           </div>

@@ -24,9 +24,7 @@ export const getShowList = async ({
   return data;
 };
 
-export const getShowDetail = async (
-  showId: number,
-): Promise<ShowDetailType> => {
+export const getShow = async (showId: number): Promise<ShowDetailType> => {
   const response = await fetchData(`/api/shows/${showId}`);
 
   const data = await response.json();
@@ -38,7 +36,7 @@ export const getShowDetail = async (
   return data;
 };
 
-export const postShowDetail = async ({
+export const postShow = async ({
   venueId,
   body,
 }: {
@@ -62,7 +60,7 @@ export const postShowDetail = async ({
   return data;
 };
 
-export const putShowDetail = async ({
+export const putShow = async ({
   showId,
   body,
 }: {
@@ -86,7 +84,7 @@ export const putShowDetail = async ({
   return data;
 };
 
-export const deleteShowDetail = async (showId: number) => {
+export const deleteShow = async (showId: number) => {
   await fetchData(`/api/shows/${showId}`, {
     method: 'DELETE',
     headers: {
