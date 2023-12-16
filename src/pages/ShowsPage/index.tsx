@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { getShowList } from '~/apis/shows';
 import { PaginationBox } from '~/components/PaginationBox';
+import { PATH } from '~/constants/path';
 import { SearchParams, ShowList } from '~/types/api.types';
 
 export const ShowsPage: React.FC = () => {
@@ -33,11 +34,11 @@ export const ShowsPage: React.FC = () => {
   };
 
   const goDetail = (id: number) => {
-    navigate(`/shows/${id}`);
+    navigate(`${PATH.SHOWS}/${id}`);
   };
 
   const goPost = () => {
-    navigate('/shows/post');
+    navigate(`${PATH.SHOWS_POST}`);
   };
 
   return (

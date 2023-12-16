@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { deleteShowDetail } from '~/apis/shows';
+import { PATH } from '~/constants/path';
 import { ShowDetailType } from '~/types/api.types';
 
 type Props = {
@@ -19,7 +20,7 @@ export const DetailContent: React.FC<Props> = ({ showDetailData, onEdit }) => {
 
     if (isDelete) {
       await deleteShowDetail(Number(showDetailData.id));
-      navigate('/shows');
+      navigate(`${PATH.SHOWS}`);
     }
   };
 
@@ -42,15 +43,15 @@ export const DetailContent: React.FC<Props> = ({ showDetailData, onEdit }) => {
   };
 
   return (
-    <Container>
-      <Poster>
+    <StyledContainer>
+      <StyledPosterWrapper>
         <StyledTitle>포스터</StyledTitle>
         <PosterContainer>
           <StyledPoster src={showDetailData.poster.url} />
         </PosterContainer>
-      </Poster>
-      <ContentWrapper>
-        <Header>
+      </StyledPosterWrapper>
+      <StyledContentWrapper>
+        <StyledHeader>
           <StyledTitle>공연 이름</StyledTitle>
           <div>
             <IconButton onClick={onEdit}>
@@ -60,7 +61,7 @@ export const DetailContent: React.FC<Props> = ({ showDetailData, onEdit }) => {
               <DeleteIcon />
             </IconButton>
           </div>
-        </Header>
+        </StyledHeader>
         <StyledContent>{showDetailData.teamName}</StyledContent>
         <StyledTitle>공연 장소</StyledTitle>
         <StyledContent>{showDetailData.venueName}</StyledContent>
@@ -75,12 +76,12 @@ export const DetailContent: React.FC<Props> = ({ showDetailData, onEdit }) => {
         <StyledContent style={{ flex: 1 }}>
           {showDetailData.description}
         </StyledContent>
-      </ContentWrapper>
-    </Container>
+      </StyledContentWrapper>
+    </StyledContainer>
   );
 };
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   width: 80%;
   display: flex;
   gap: 50px;
@@ -92,7 +93,7 @@ const StyledTitle = styled.div`
 `;
 
 const PosterContainer = styled.div`
-  width: 400px;
+  width: 500px;
   height: 670px;
   min-height: 400px;
   display: flex;
@@ -107,14 +108,14 @@ const StyledPoster = styled.img`
   width: 400px;
 `;
 
-const Header = styled.div`
+const StyledHeader = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const ContentWrapper = styled.div`
+const StyledContentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -129,7 +130,7 @@ const StyledContent = styled.div`
   background-color: #f5f6fc;
 `;
 
-const Poster = styled.div`
+const StyledPosterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;

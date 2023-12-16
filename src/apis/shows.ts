@@ -38,7 +38,7 @@ export const getShowDetail = async (
   return data;
 };
 
-export const postShow = async ({
+export const postShowDetail = async ({
   venueId,
   body,
 }: {
@@ -62,7 +62,7 @@ export const postShow = async ({
   return data;
 };
 
-export const putShow = async ({
+export const putShowDetail = async ({
   showId,
   body,
 }: {
@@ -99,9 +99,8 @@ export const getSearchVenueList = async (
   word: string,
   page?: number,
 ): Promise<VenueList> => {
-  const response = await fetchData(
-    `/api/venues/search?word=${word}${page ? `&page=${page}` : ''}`,
-  );
+  const queryString = getQueryString({ word, page });
+  const response = await fetchData(`/api/venues/search${queryString}`);
 
   const data = await response.json();
 
