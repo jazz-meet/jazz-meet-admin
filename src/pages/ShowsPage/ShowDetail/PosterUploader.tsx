@@ -3,14 +3,19 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { ChangeEvent, useRef } from 'react';
-import { postImages } from '~/apis/common';
+import { deleteImages, postImages } from '~/apis/common';
 
 type Props = {
+  id?: number | null;
   url?: string;
-  onChangePoster: (url: string, id: number) => void;
+  onChangePoster: (url: string, id: number | null) => void;
 };
 
-export const PosterUploader: React.FC<Props> = ({ url, onChangePoster }) => {
+export const PosterUploader: React.FC<Props> = ({
+  id,
+  url,
+  onChangePoster,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClick = () => {
@@ -34,6 +39,15 @@ export const PosterUploader: React.FC<Props> = ({ url, onChangePoster }) => {
     }
   };
 
+  const deletePoster = async () => {
+    const isDelete = confirm('포스터를 삭제하시겠습니까?');
+
+    if (id && isDelete) {
+      await deleteImages(id);
+      onChangePoster('', null);
+    }
+  };
+
   const uploadPoster = async (posterFile: FormData) => {
     const res = await postImages(posterFile);
     const { url, id } = res.images[0];
@@ -43,10 +57,10 @@ export const PosterUploader: React.FC<Props> = ({ url, onChangePoster }) => {
 
   return (
     <>
-      <Header>
+      <StyledHeader>
         <StyledTitle>포스터</StyledTitle>
         <div>
-          <PosterInput
+          <StyledPosterInput
             ref={inputRef}
             accept="image/*"
             type="file"
@@ -55,19 +69,19 @@ export const PosterUploader: React.FC<Props> = ({ url, onChangePoster }) => {
           <IconButton onClick={onClick}>
             <AddIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={deletePoster}>
             <DeleteIcon />
           </IconButton>
         </div>
-      </Header>
-      <PosterContainer>
+      </StyledHeader>
+      <StyledPosterContainer>
         <StyledPoster src={url ? url : ''} />
-      </PosterContainer>
+      </StyledPosterContainer>
     </>
   );
 };
 
-const Header = styled.div`
+const StyledHeader = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
@@ -82,8 +96,8 @@ const StyledTitle = styled.div`
   font-weight: bold;
 `;
 
-const PosterContainer = styled.div`
-  width: 400px;
+const StyledPosterContainer = styled.div`
+  width: 500px;
   height: 670px;
   min-height: 400px;
   display: flex;
@@ -92,13 +106,12 @@ const PosterContainer = styled.div`
   align-items: center;
   border: 1px solid black;
   border-radius: 8px;
-  padding: 0 50px;
 `;
 
 const StyledPoster = styled.img`
   width: 400px;
 `;
 
-const PosterInput = styled.input`
+const StyledPosterInput = styled.input`
   display: none;
 `;

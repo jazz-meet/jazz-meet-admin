@@ -15,3 +15,9 @@ export const postImages = async (images: FormData): Promise<UploadImageRes> => {
 
   return data;
 };
+
+export const deleteImages = async (imageId: number) => {
+  await fetchData(`/api/images/${imageId}`, {
+    method: 'DELETE',
+  });
+};

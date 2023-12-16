@@ -7,7 +7,8 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postShow, putShow } from '~/apis/shows';
+import { postShowDetail, putShowDetail } from '~/apis/shows';
+import { PATH } from '~/constants/path';
 import { useText } from '~/hook/useText';
 import { ShowDetailType } from '~/types/api.types';
 import { PosterUploader } from './PosterUploader';
@@ -44,7 +45,40 @@ export const DetailInput: React.FC<Props> = ({
     showDetailData ? new Date(showDetailData.endTime) : new Date(),
   );
 
+  const getDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: false,
+    };
+
+    const formattedTime = new Intl.DateTimeFormat('kr', options).format(date);
+
+    return formattedTime
+      .replace(/\./g, '-')
+      .replace(/\s+/g, '')
+      .replace(/-(?=\d{2}:\d{2}$)/, ' ');
+  };
+
   const isEditMode = !!showDetailData;
+  const isDisabledSubmit = isEditMode
+    ? !(
+        showDetailData.teamName !== teamName.value ||
+        showDetailData.description !== description.value ||
+        showDetailData.venueName !== venueName ||
+        showDetailData.poster.id !== poster.id ||
+        getDate(new Date(showDetailData!.startTime)) !== getDate(startTime) ||
+        getDate(new Date(showDetailData.endTime)) !== getDate(endTime)
+      )
+    : !teamName.value ||
+      !description.value ||
+      !venueName ||
+      !poster.id ||
+      !startTime ||
+      !endTime;
 
   const onDialogClose = () => {
     setIsDialogOpen(false);
@@ -60,7 +94,7 @@ export const DetailInput: React.FC<Props> = ({
     onDialogClose();
   };
 
-  const onChangePoster = (url: string, id: number) => {
+  const onChangePoster = (url: string, id: number | null) => {
     setPoster({
       url,
       id,
@@ -80,24 +114,26 @@ export const DetailInput: React.FC<Props> = ({
 
     if (isEditMode && setNewData) {
       const showId = showDetailData.id;
-      const data = await putShow({ showId: showId, body: body });
+      const data = await putShowDetail({ showId: showId, body: body });
 
       closePost();
       setNewData(data);
     } else if (venueId) {
-      const data = await postShow({ venueId: venueId, body: body });
+      const data = await postShowDetail({ venueId: venueId, body: body });
 
-      navigate(`/shows/${data.id}`);
+      navigate(`${PATH.SHOWS}/${data.id}`);
     }
-    console.log(body);
-    console.log(JSON.stringify(body));
   };
 
   return (
     <StyledDetailInput>
       <Container>
         <LeftContentWrapper>
-          <PosterUploader url={poster.url} onChangePoster={onChangePoster} />
+          <PosterUploader
+            id={poster.id}
+            url={poster.url}
+            onChangePoster={onChangePoster}
+          />
         </LeftContentWrapper>
         <ContentWrapper>
           <Header>
@@ -154,7 +190,11 @@ export const DetailInput: React.FC<Props> = ({
         <Button variant="contained" onClick={closePost}>
           취소
         </Button>
-        <Button variant="contained" onClick={submit}>
+        <Button
+          variant="contained"
+          onClick={submit}
+          disabled={isDisabledSubmit}
+        >
           {isEditMode ? '수정' : '등록'}
         </Button>
       </StyledButtonWrapper>
