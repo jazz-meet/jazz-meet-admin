@@ -7,9 +7,10 @@ import {
 import { BaseLayout } from './layouts/BaseLayout';
 import { InquiriesPage } from './pages/InquiriesPage';
 import { ShowsPage } from './pages/ShowsPage';
+import { PostShow } from './pages/ShowsPage/PostShow';
+import { ShowDetail } from './pages/ShowsPage/ShowDetail';
 import { VenuesPage } from './pages/VenuesPage';
 import { AdminVenueDetail } from './pages/VenuesPage/AdminVenueDetail';
-import { PostShow } from './pages/VenuesPage/PostShow';
 
 export const Router: React.FC = () => {
   return <RouterProvider router={router} />;
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path="venues/:venueId" element={<AdminVenueDetail />} />
 
       <Route path="shows" element={<ShowsPage />} />
+      <Route path="shows/:showId" element={<ShowDetail />} />
       <Route path="shows/post" element={<PostShow />} />
 
       <Route path="inquiries" element={<InquiriesPage />} />
