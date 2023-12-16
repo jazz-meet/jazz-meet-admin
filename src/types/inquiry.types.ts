@@ -1,4 +1,4 @@
-import { INQUIRY_CATEGORIES } from '~/constants/INQUIRY_CATEGORIES';
+import { INQUIRY_CATEGORIES } from '~/constants/inquiryCategories';
 
 export type InquiryCategories = (typeof INQUIRY_CATEGORIES)[number];
 

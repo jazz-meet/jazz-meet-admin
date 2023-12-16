@@ -25,7 +25,9 @@ type Show = {
   id: number;
   teamName: string;
   venueName: string;
-} & ShowTime;
+  startTime: string;
+  endTime: string;
+};
 
 export type ShowList = {
   shows: Show[];
@@ -52,11 +54,6 @@ export type ShowDetailRequest = {
   endTime: Date;
 };
 
-type ShowTime = {
-  startTime: string;
-  endTime: string;
-};
-
 export type InquiryParams = {
   category: InquiryCategories;
 } & SearchParams;
@@ -65,6 +62,48 @@ export type InquiryData = {
   inquiries: Inquiry[];
 } & Pagination;
 
+export type VenueDetail = {
+  id: number;
+  images: {
+    id: number;
+    url: string;
+  }[];
+  name: string;
+  roadNameAddress: string;
+  lotNumberAddress: string;
+  phoneNumber: string;
+  links: {
+    type: string;
+    url: string;
+  }[];
+  venueHours: {
+    day: string;
+    businessHours: string;
+  }[];
+  description: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type VenuePostBody = Omit<VenueDetail, 'id' | 'images'> & {
+  imageIds: number[];
+};
+
+export type ImageType = {
+  id: number;
+  url: string;
+};
+
+export type LocationType = Pick<
+  VenueDetail,
+  'roadNameAddress' | 'lotNumberAddress' | 'latitude' | 'longitude'
+>;
+
+export type Links = VenueDetail['links'];
+
+export type GeoLocation = {
+  addresses: LocationType[];
+} & Pagination;
 export type InquiryDetailData = {
   id: number;
   status: string;

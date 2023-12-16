@@ -37,6 +37,7 @@ const StyledHeader = styled.div`
   font-size: 24px;
   padding: 20px;
   position: sticky;
+  z-index: 1000;
   top: 0;
   background-color: #ffffff;
   display: flex;

@@ -7,15 +7,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getVenueList } from '~/apis/venue';
 import { PaginationBox } from '~/components/PaginationBox';
 import { SearchParams, VenueList } from '~/types/api.types';
+import { ActionButtons } from './ActionButtons';
 
 export const VenuesPage: React.FC = () => {
   const [venueList, setVenueList] = useState<VenueList>();
   const [venueListParams, setVenueListParams] = useState<SearchParams>({
     page: 1,
   });
+  const navigate = useNavigate();
+
+  const onPageChange = (_: React.ChangeEvent<unknown>, page: number) => {
+    setVenueListParams((prev) => ({ ...prev, page }));
+  };
 
   useEffect(() => {
     (async () => {
@@ -25,12 +32,13 @@ export const VenuesPage: React.FC = () => {
     })();
   }, [venueListParams]);
 
-  const onPageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-    setVenueListParams((prev) => ({ ...prev, page }));
+  const onRowClick = (id: number) => {
+    navigate(`/venues/${id}`);
   };
 
   return (
     <StyledVenuesPage>
+      <ActionButtons />
       {venueList ? (
         <>
           <TableContainer component={Paper}>
@@ -53,6 +61,7 @@ export const VenuesPage: React.FC = () => {
                         cursor: 'pointer',
                       },
                     }}
+                    onClick={() => onRowClick(venue.id)}
                   >
                     <TableCell>{venue.id}</TableCell>
                     <TableCell>{venue.name}</TableCell>
@@ -67,6 +76,7 @@ export const VenuesPage: React.FC = () => {
             currentPage={venueList.currentPage}
             onChange={onPageChange}
           />
+          <ActionButtons />
         </>
       ) : (
         <div>로딩중...</div>
