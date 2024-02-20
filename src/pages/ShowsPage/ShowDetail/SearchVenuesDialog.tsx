@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Pagination } from '@mui/material';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { getSearchVenueList } from '~/apis/shows';
-import { useDebounce } from '~/hook/useDebounce';
+import { useDebounce } from '~/hooks/useDebounce';
 import { BaseDialog } from '~/layouts/BaseLayout/BaseDialog';
 import { VenueList } from '~/types/api.types';
 

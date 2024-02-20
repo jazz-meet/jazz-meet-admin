@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postShow, putShow } from '~/apis/shows';
 import { PATH } from '~/constants/path';
-import { useText } from '~/hook/useText';
+import { useText } from '~/hooks/useText';
 import { ShowDetailType } from '~/types/api.types';
 import { PosterUploader } from './PosterUploader';
 import { SearchVenuesDialog } from './SearchVenuesDialog';
