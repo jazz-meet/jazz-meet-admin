@@ -1,5 +1,5 @@
 import { Global } from '@emotion/react';
-import { Router } from './Router';
+import { Router } from './router/Router';
 import { globalStyles } from './styles/globalStyles';
 
 export const App: React.FC = () => {
