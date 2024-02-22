@@ -5,6 +5,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { Link } from 'react-router-dom';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
+import { PATH } from '~/constants/path';
 import { SidebarItem } from './SidebarItem';
 
 export const Sidebar: React.FC = () => {
@@ -13,11 +14,11 @@ export const Sidebar: React.FC = () => {
       <StyledLink to="/">
         <JazzMeet />
       </StyledLink>
-      <SidebarItem linkTo="/venues" Icon={PlaceIcon} text="공연장" />
-      <SidebarItem linkTo="/shows" Icon={PianoIcon} text="공연" />
-      <SidebarItem linkTo="/inquiries" Icon={CommentIcon} text="문의" />
+      <SidebarItem linkTo={PATH.VENUES} Icon={PlaceIcon} text="공연장" />
+      <SidebarItem linkTo={PATH.SHOWS} Icon={PianoIcon} text="공연" />
+      <SidebarItem linkTo={PATH.INQUIRIES} Icon={CommentIcon} text="문의" />
       <SidebarItem
-        linkTo="/sign-up"
+        linkTo={PATH.SIGN_UP}
         Icon={SupervisorAccountIcon}
         text="관리자 계정 생성"
       />
