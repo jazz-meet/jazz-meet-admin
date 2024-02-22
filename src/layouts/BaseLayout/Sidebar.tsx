@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import CommentIcon from '@mui/icons-material/Comment';
 import PianoIcon from '@mui/icons-material/Piano';
 import PlaceIcon from '@mui/icons-material/Place';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { Link } from 'react-router-dom';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
 import { SidebarItem } from './SidebarItem';
@@ -15,6 +16,11 @@ export const Sidebar: React.FC = () => {
       <SidebarItem linkTo="/venues" Icon={PlaceIcon} text="공연장" />
       <SidebarItem linkTo="/shows" Icon={PianoIcon} text="공연" />
       <SidebarItem linkTo="/inquiries" Icon={CommentIcon} text="문의" />
+      <SidebarItem
+        linkTo="/sign-up"
+        Icon={SupervisorAccountIcon}
+        text="관리자 계정 생성"
+      />
     </StyledSideBar>
   );
 };
