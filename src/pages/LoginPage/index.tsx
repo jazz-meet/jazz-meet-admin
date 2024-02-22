@@ -1,20 +1,12 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
 import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
-import { PATH } from '~/constants/path';
 
 const ID = 'id';
 const PASSWORD = 'password';
 
 export const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
-
-  const goToSignUp = () => {
-    navigate(PATH.SIGN_UP);
-  };
-
   return (
     <StyledLoginPage>
       <StyledFormContainer>
@@ -27,9 +19,6 @@ export const LoginPage: React.FC = () => {
           <Input id={PASSWORD} type="password" />
 
           <Button type="submit">로그인</Button>
-          <Button type="button" onClick={goToSignUp}>
-            회원가입
-          </Button>
         </StyledForm>
       </StyledFormContainer>
     </StyledLoginPage>
