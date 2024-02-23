@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginAdmin } from '~/apis/auth';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
 import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
@@ -11,10 +10,8 @@ import {
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
 } from '~/constants/auth';
-import { ERROR_MESSAGE } from '~/constants/errorMessage';
 import { PATH } from '~/constants/path';
-import { setTokenToSessionStorage } from '~/utils/storage';
-import { isLengthValid } from '~/utils/validators';
+import { handleLogin } from '~/utils/authUtils';
 
 const LOGIN_ID = 'login-id';
 const PASSWORD = 'password';
@@ -35,23 +32,8 @@ export const LoginPage: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      if (
-        !isLengthValid(loginId, LOGIN_ID_MIN_LENGTH, LOGIN_ID_MAX_LENGTH) &&
-        !isLengthValid(password, PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)
-      ) {
-        throw new Error(ERROR_MESSAGE.INVALID_LOGIN);
-      }
-
-      const { accessToken } = await loginAdmin(loginId, password);
-
-      setTokenToSessionStorage(accessToken);
-      navigate(PATH.HOME);
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    }
+    await handleLogin(loginId, password);
+    navigate(PATH.HOME);
   };
 
   return (
