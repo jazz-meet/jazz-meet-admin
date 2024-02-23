@@ -21,3 +21,19 @@ export const loginAdmin = async (
 
   return data;
 };
+
+export const logoutAdmin = async (token: string): Promise<void> => {
+  const response = await fetchData('/api/admins/logout', {
+    method: 'POST',
+    headers: {
+      Authorization: JSON.stringify({ token }),
+    },
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.errorMessage);
+  }
+
+  return;
+};
