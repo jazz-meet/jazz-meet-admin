@@ -59,3 +59,18 @@ export const logoutAdmin = async (token: string): Promise<void> => {
 
   return;
 };
+
+export const refreshAdminToken = async (): Promise<string> => {
+  const response = await fetchData('/api/admins/reissue', {
+    method: 'POST',
+    credentials: 'include',
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.errorMessage);
+  }
+
+  return data.accessToken;
+};
