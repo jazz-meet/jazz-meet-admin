@@ -6,12 +6,13 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { Button } from '~/components/Button';
 import { WEEKDAYS } from '~/constants/date';
 import { usePostVenueFormStore } from '../usePostVenueFormStore';
 
 export const Hours: React.FC = () => {
+  const id = useId();
   const { venueHours, addVenueHour, deleteVenueHour } = usePostVenueFormStore(
     ({ venueHours, addVenueHour, deleteVenueHour }) => ({
       venueHours,
@@ -64,12 +65,8 @@ export const Hours: React.FC = () => {
           </DemoContainer>
         </LocalizationProvider>
         <StyledCheckboxContainer>
-          <label htmlFor="venue-closed">휴무</label>
-          <input
-            id="venue-closed"
-            type="checkbox"
-            onChange={onCheckboxChange}
-          />
+          <label htmlFor={id}>휴무</label>
+          <input id={id} type="checkbox" onChange={onCheckboxChange} />
         </StyledCheckboxContainer>
       </StyledHourInputContainer>
 

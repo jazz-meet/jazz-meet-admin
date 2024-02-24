@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
 import { Button } from '~/components/Button';
@@ -13,13 +13,13 @@ import {
 import { PATH } from '~/constants/path';
 import { handleLogin } from '~/utils/authUtils';
 
-const LOGIN_ID = 'login-id';
-const PASSWORD = 'password';
-
 export const LoginPage: React.FC = () => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const id = useId();
+  const loginInputId = id + 'loginId';
+  const passwordInputId = id + 'password';
 
   const onChangeLoginId = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginId(event.target.value);
@@ -42,18 +42,18 @@ export const LoginPage: React.FC = () => {
         <JazzMeet />
         <StyledForm onSubmit={onSubmit}>
           <StyledH1>관리자 로그인</StyledH1>
-          <label htmlFor={LOGIN_ID}>아이디</label>
+          <label htmlFor={loginInputId}>아이디</label>
           <Input
-            id={LOGIN_ID}
+            id={loginInputId}
             type="text"
             minLength={LOGIN_ID_MIN_LENGTH}
             maxLength={LOGIN_ID_MAX_LENGTH}
             value={loginId}
             onChange={onChangeLoginId}
           />
-          <label htmlFor={PASSWORD}>비밀번호</label>
+          <label htmlFor={passwordInputId}>비밀번호</label>
           <Input
-            id={PASSWORD}
+            id={passwordInputId}
             type="password"
             minLength={PASSWORD_MIN_LENGTH}
             maxLength={PASSWORD_MAX_LENGTH}
