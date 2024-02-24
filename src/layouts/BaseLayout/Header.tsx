@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { refreshAdminToken } from '~/apis/auth';
 
 export const Header: React.FC = () => {
   const location = useLocation();
@@ -9,6 +10,13 @@ export const Header: React.FC = () => {
   return (
     <StyledHeader>
       <Link to="/">{'홈'}</Link>
+      <button
+        onClick={() => {
+          refreshAdminToken();
+        }}
+      >
+        재발급
+      </button>
       {paths.map(
         (path, index) =>
           path in pathNameMapping && (

@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 import CommentIcon from '@mui/icons-material/Comment';
+import LogoutIcon from '@mui/icons-material/Logout';
 import PianoIcon from '@mui/icons-material/Piano';
 import PlaceIcon from '@mui/icons-material/Place';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { Link } from 'react-router-dom';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
+import { PATH } from '~/constants/path';
+import { handleLogout } from '~/utils/authUtils';
 import { SidebarItem } from './SidebarItem';
 
 export const Sidebar: React.FC = () => {
@@ -12,9 +16,20 @@ export const Sidebar: React.FC = () => {
       <StyledLink to="/">
         <JazzMeet />
       </StyledLink>
-      <SidebarItem linkTo="/venues" Icon={PlaceIcon} text="공연장" />
-      <SidebarItem linkTo="/shows" Icon={PianoIcon} text="공연" />
-      <SidebarItem linkTo="/inquiries" Icon={CommentIcon} text="문의" />
+      <SidebarItem linkTo={PATH.VENUES} Icon={PlaceIcon} text="공연장" />
+      <SidebarItem linkTo={PATH.SHOWS} Icon={PianoIcon} text="공연" />
+      <SidebarItem linkTo={PATH.INQUIRIES} Icon={CommentIcon} text="문의" />
+      <SidebarItem
+        linkTo={PATH.SIGN_UP}
+        Icon={SupervisorAccountIcon}
+        text="관리자 계정 생성"
+      />
+      <SidebarItem
+        linkTo={PATH.LOGIN}
+        Icon={LogoutIcon}
+        text="로그아웃"
+        onClick={handleLogout}
+      />
     </StyledSideBar>
   );
 };
