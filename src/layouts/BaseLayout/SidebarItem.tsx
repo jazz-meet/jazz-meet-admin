@@ -6,11 +6,17 @@ type Props = {
   linkTo: string;
   Icon: React.FC;
   text: string;
+  onClick?: () => void;
 };
 
-export const SidebarItem: React.FC<Props> = ({ linkTo, Icon, text }) => {
+export const SidebarItem: React.FC<Props> = ({
+  linkTo,
+  Icon,
+  text,
+  onClick,
+}) => {
   return (
-    <StyledLink to={linkTo}>
+    <StyledLink to={linkTo} onClick={onClick}>
       <Icon />
       {text}
     </StyledLink>

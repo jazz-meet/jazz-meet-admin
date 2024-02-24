@@ -129,3 +129,7 @@ export type UploadImageRes = {
     url: string;
   }[];
 };
+
+export type LoginAdminResponse = {
+  accessToken: string;
+};
