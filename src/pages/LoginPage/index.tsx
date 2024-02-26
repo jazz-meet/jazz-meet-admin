@@ -32,8 +32,14 @@ export const LoginPage: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    await handleLogin(loginId, password);
-    navigate(PATH.HOME);
+    try {
+      await handleLogin(loginId, password);
+      navigate(PATH.HOME);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   };
 
   return (

@@ -29,7 +29,13 @@ export const SignUpPage: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    handleCreateAdmin(loginId, password);
+    try {
+      await handleCreateAdmin(loginId, password);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   };
 
   return (
