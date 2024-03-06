@@ -32,6 +32,7 @@ export const loginAdmin = async (
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ loginId, password }),
   });
 
@@ -56,8 +57,6 @@ export const logoutAdmin = async (token: string): Promise<void> => {
     const data = await response.json();
     throw new Error(data.errorMessage);
   }
-
-  return;
 };
 
 export const refreshAdminToken = async (): Promise<string> => {

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
 import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
@@ -11,12 +11,12 @@ import {
 } from '~/constants/auth';
 import { handleCreateAdmin } from '~/utils/authUtils';
 
-const ID = 'id';
-const PASSWORD = 'password';
-
 export const SignUpPage: React.FC = () => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
+  const id = useId();
+  const loginInputId = id + 'id';
+  const passwordInputId = id + 'password';
 
   const handleLoginIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginId(event.target.value);
@@ -29,7 +29,13 @@ export const SignUpPage: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    handleCreateAdmin(loginId, password);
+    try {
+      await handleCreateAdmin(loginId, password);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   };
 
   return (
@@ -38,17 +44,17 @@ export const SignUpPage: React.FC = () => {
         <JazzMeet />
         <StyledForm onSubmit={onSubmit}>
           <StyledH1>관리자 계정 생성</StyledH1>
-          <label htmlFor={ID}>아이디</label>
+          <label htmlFor={loginInputId}>아이디</label>
           <Input
-            id={ID}
+            id={loginInputId}
             type="text"
             minLength={LOGIN_ID_MIN_LENGTH}
             maxLength={LOGIN_ID_MAX_LENGTH}
             onChange={handleLoginIdChange}
           />
-          <label htmlFor={PASSWORD}>비밀번호</label>
+          <label htmlFor={passwordInputId}>비밀번호</label>
           <Input
-            id={PASSWORD}
+            id={passwordInputId}
             type="password"
             minLength={PASSWORD_MIN_LENGTH}
             maxLength={PASSWORD_MAX_LENGTH}
