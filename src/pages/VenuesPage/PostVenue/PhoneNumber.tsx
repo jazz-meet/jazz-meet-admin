@@ -1,7 +1,9 @@
+import { useId } from 'react';
 import { Input } from '~/components/Input';
 import { usePostVenueFormStore } from './usePostVenueFormStore';
 
 export const PhoneNumber: React.FC = () => {
+  const id = useId();
   const { phoneNumber, changePhoneNumber } = usePostVenueFormStore((state) => ({
     phoneNumber: state.phoneNumber,
     changePhoneNumber: state.changePhoneNumber,
@@ -9,11 +11,9 @@ export const PhoneNumber: React.FC = () => {
 
   return (
     <>
-      <label
-        htmlFor={PHONE_NUMBER}
-      >{`전화번호 ('-' 포함하여 작성해주세요.)`}</label>
+      <label htmlFor={id}>{`전화번호 ('-' 포함하여 작성해주세요.)`}</label>
       <Input
-        id={PHONE_NUMBER}
+        id={id}
         type="text"
         value={phoneNumber}
         onChange={(event) => changePhoneNumber(event.target.value)}
@@ -23,5 +23,3 @@ export const PhoneNumber: React.FC = () => {
     </>
   );
 };
-
-const PHONE_NUMBER = 'venue-phone-number';
