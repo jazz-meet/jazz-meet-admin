@@ -32,6 +32,7 @@ export const loginAdmin = async (
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ loginId, password }),
   });
 
