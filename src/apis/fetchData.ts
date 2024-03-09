@@ -15,6 +15,7 @@ export const fetchDataWithToken = async (
   }
 
   return fetchData(path, {
+    credentials: 'include',
     ...options,
     headers: {
       ...options?.headers,
