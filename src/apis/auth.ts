@@ -1,26 +1,23 @@
 import { LoginAdminResponse } from '~/types/api.types';
-import { fetchData } from './fetchData';
+import { fetchData, fetchDataWithToken } from './fetchData';
 
 export const createAdmin = async (
   loginId: string,
   password: string,
-  token: string,
 ): Promise<void> => {
-  const response = await fetchData('/api/admins/sign-up', {
+  const response = await fetchDataWithToken('/api/admins/sign-up', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: JSON.stringify({ token }),
     },
     body: JSON.stringify({ loginId, password }),
   });
 
   if (!response.ok) {
     const data = await response.json();
+
     throw new Error(data.errorMessage);
   }
-
-  return;
 };
 
 export const loginAdmin = async (
@@ -32,10 +29,8 @@ export const loginAdmin = async (
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
     body: JSON.stringify({ loginId, password }),
   });
-
   const data = await response.json();
 
   if (!response.ok) {
@@ -45,26 +40,22 @@ export const loginAdmin = async (
   return data;
 };
 
-export const logoutAdmin = async (token: string): Promise<void> => {
-  const response = await fetchData('/api/admins/logout', {
+export const logoutAdmin = async (): Promise<void> => {
+  const response = await fetchDataWithToken('/api/admins/logout', {
     method: 'POST',
-    headers: {
-      Authorization: JSON.stringify({ token }),
-    },
   });
 
   if (!response.ok) {
     const data = await response.json();
+
     throw new Error(data.errorMessage);
   }
 };
 
 export const refreshAdminToken = async (): Promise<string> => {
-  const response = await fetchData('/api/admins/reissue', {
+  const response = await fetchDataWithToken('/api/admins/reissue', {
     method: 'POST',
-    credentials: 'include',
   });
-
   const data = await response.json();
 
   if (!response.ok) {
