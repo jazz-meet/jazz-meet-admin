@@ -1,10 +1,16 @@
 export const isLengthValid = (
   value: string,
-  minLength?: number,
-  maxLength?: number,
+  options: {
+    minLength?: number;
+    maxLength?: number;
+  },
 ) => {
+  const { minLength, maxLength } = options;
+
   return (
-    (minLength === undefined || value.length >= minLength) &&
-    (maxLength === undefined || value.length <= maxLength)
+    minLength !== undefined &&
+    maxLength !== undefined &&
+    value.length >= minLength &&
+    value.length <= maxLength
   );
 };

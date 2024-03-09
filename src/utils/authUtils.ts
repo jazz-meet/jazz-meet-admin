@@ -15,26 +15,32 @@ import { isLengthValid } from './validators';
 
 export const handleCreateAdmin = async (loginId: string, password: string) => {
   if (
-    !isLengthValid(loginId, LOGIN_ID_MIN_LENGTH, LOGIN_ID_MAX_LENGTH) ||
-    !isLengthValid(password, PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)
+    !isLengthValid(loginId, {
+      minLength: LOGIN_ID_MIN_LENGTH,
+      maxLength: LOGIN_ID_MAX_LENGTH,
+    }) ||
+    !isLengthValid(password, {
+      minLength: PASSWORD_MIN_LENGTH,
+      maxLength: PASSWORD_MAX_LENGTH,
+    })
   ) {
     throw new Error(ERROR_MESSAGE.INVALID_LOGIN);
   }
 
-  const token = getTokenFromSessionStorage();
-
-  if (!token) {
-    throw new Error(ERROR_MESSAGE.TOKEN_NOT_FOUND);
-  }
-
-  await createAdmin(loginId, password, token);
+  await createAdmin(loginId, password);
   alert('관리자 계정이 생성되었습니다.');
 };
 
 export const handleLogin = async (loginId: string, password: string) => {
   if (
-    !isLengthValid(loginId, LOGIN_ID_MIN_LENGTH, LOGIN_ID_MAX_LENGTH) &&
-    !isLengthValid(password, PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)
+    !isLengthValid(loginId, {
+      minLength: LOGIN_ID_MIN_LENGTH,
+      maxLength: LOGIN_ID_MAX_LENGTH,
+    }) &&
+    !isLengthValid(password, {
+      minLength: PASSWORD_MIN_LENGTH,
+      maxLength: PASSWORD_MAX_LENGTH,
+    })
   ) {
     throw new Error(ERROR_MESSAGE.INVALID_LOGIN);
   }
