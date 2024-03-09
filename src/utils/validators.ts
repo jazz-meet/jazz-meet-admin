@@ -10,7 +10,7 @@ const isLengthValid = (
   options: {
     minLength?: number;
     maxLength?: number;
-  },
+  } & ({ minLength: number } | { maxLength: number }),
 ): boolean => {
   const { minLength = 0, maxLength = Infinity } = options;
 
