@@ -1,4 +1,5 @@
 import { BASE_URL } from '~/constants/envVariables';
+import { ERROR_MESSAGE } from '~/constants/errorMessage';
 import { getTokenFromSessionStorage } from '~/utils/storage';
 
 export const fetchData = async (path: string, options?: RequestInit) => {
@@ -11,7 +12,7 @@ export const fetchDataWithToken = async (
 ) => {
   const token = getTokenFromSessionStorage();
   if (!token) {
-    throw new Error('Token not found');
+    throw new Error(ERROR_MESSAGE.TOKEN_NOT_FOUND);
   }
 
   return fetchData(path, {
