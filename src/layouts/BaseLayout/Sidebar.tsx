@@ -4,13 +4,25 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PianoIcon from '@mui/icons-material/Piano';
 import PlaceIcon from '@mui/icons-material/Place';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import JazzMeet from '~/assets/icons/JazzMeet.svg?react';
 import { PATH } from '~/constants/path';
 import { handleLogout } from '~/utils/authUtils';
 import { SidebarItem } from './SidebarItem';
 
 export const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
+  const onLogoutClick = async () => {
+    try {
+      await handleLogout();
+      navigate(PATH.LOGIN);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
+  };
+
   return (
     <StyledSideBar>
       <StyledLink to="/">
@@ -28,7 +40,7 @@ export const Sidebar: React.FC = () => {
         linkTo={PATH.LOGIN}
         Icon={LogoutIcon}
         text="로그아웃"
-        onClick={handleLogout}
+        onClick={onLogoutClick}
       />
     </StyledSideBar>
   );

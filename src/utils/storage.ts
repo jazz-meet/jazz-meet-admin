@@ -7,10 +7,10 @@ const setSessionStorage = (key: string, value: string) => {
 };
 
 export const setTokenToSessionStorage = (token: string) => {
-  setSessionStorage(SESSION_STORAGE_KEYS.TOKEN, 'Bearer ' + token);
+  setSessionStorage(SESSION_STORAGE_KEYS.TOKEN, token);
 };
 
-export const getTokenFromSessionStorage = () => {
+export const getTokenFromSessionStorage = (): string | null => {
   const token = sessionStorage.getItem(SESSION_STORAGE_KEYS.TOKEN);
 
   return token ? JSON.parse(token) : null;
