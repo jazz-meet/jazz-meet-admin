@@ -1,6 +1,6 @@
 import { ALLOWED_EXTENSIONS } from '~/constants/fileExtension';
 import { ImageType } from '~/types/api.types';
-import { fetchData } from './fetchData';
+import { fetchDataWithToken } from './fetchData';
 
 export const uploadImages = async (
   files: File[],
@@ -17,7 +17,7 @@ export const uploadImages = async (
     formData.append('image', file);
   });
 
-  const response = await fetchData(`/api/images`, {
+  const response = await fetchDataWithToken(`/api/images`, {
     method: 'POST',
     body: formData,
   });
@@ -26,7 +26,7 @@ export const uploadImages = async (
 };
 
 export const deleteImage = async (imageId: number) => {
-  const response = await fetchData(`/api/images/${imageId}`, {
+  const response = await fetchDataWithToken(`/api/images/${imageId}`, {
     method: 'DELETE',
   });
 
