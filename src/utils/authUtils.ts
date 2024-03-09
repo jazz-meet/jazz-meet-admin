@@ -22,6 +22,11 @@ export const handleCreateAdmin = async (loginId: string, password: string) => {
   }
 
   const token = getTokenFromSessionStorage();
+
+  if (!token) {
+    throw new Error(ERROR_MESSAGE.TOKEN_NOT_FOUND);
+  }
+
   await createAdmin(loginId, password, token);
   alert('관리자 계정이 생성되었습니다.');
 };
@@ -40,7 +45,9 @@ export const handleLogin = async (loginId: string, password: string) => {
 
 export const handleLogout = async () => {
   const token = getTokenFromSessionStorage();
+  if (token) {
+    await logoutAdmin(token);
+  }
   removeTokenFromSessionStorage();
-  await logoutAdmin(token);
   alert('로그아웃 되었습니다.');
 };
