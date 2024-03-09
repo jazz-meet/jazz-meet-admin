@@ -6,14 +6,14 @@ import {
   VenueList,
 } from '~/types/api.types';
 import { getQueryString } from '~/utils/url';
-import { fetchData } from './fetchData';
+import { fetchDataWithToken } from './fetchData';
 
 export const getShowList = async ({
   word,
   page,
 }: SearchParams): Promise<ShowList> => {
   const queryString = getQueryString({ word, page });
-  const response = await fetchData(`/api/shows${queryString}`);
+  const response = await fetchDataWithToken(`/api/shows${queryString}`);
 
   const data = await response.json();
 
@@ -25,7 +25,7 @@ export const getShowList = async ({
 };
 
 export const getShow = async (showId: number): Promise<ShowDetailType> => {
-  const response = await fetchData(`/api/shows/${showId}`);
+  const response = await fetchDataWithToken(`/api/shows/${showId}`);
 
   const data = await response.json();
 
@@ -43,7 +43,7 @@ export const postShow = async ({
   venueId: number;
   body: ShowDetailRequest;
 }): Promise<{ id: number }> => {
-  const response = await fetchData(`/api/shows/${venueId}`, {
+  const response = await fetchDataWithToken(`/api/shows/${venueId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export const putShow = async ({
   showId: number;
   body: ShowDetailRequest;
 }) => {
-  const response = await fetchData(`/api/shows/${showId}`, {
+  const response = await fetchDataWithToken(`/api/shows/${showId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export const putShow = async ({
 };
 
 export const deleteShow = async (showId: number) => {
-  await fetchData(`/api/shows/${showId}`, {
+  await fetchDataWithToken(`/api/shows/${showId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export const getSearchVenueList = async (
   page?: number,
 ): Promise<VenueList> => {
   const queryString = getQueryString({ word, page });
-  const response = await fetchData(`/api/venues/search${queryString}`);
+  const response = await fetchDataWithToken(`/api/venues/search${queryString}`);
 
   const data = await response.json();
 

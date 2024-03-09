@@ -1,13 +1,13 @@
 import { GeoLocation } from '~/types/api.types';
 import { getQueryString } from '~/utils/url';
-import { fetchData } from './fetchData';
+import { fetchDataWithToken } from './fetchData';
 
 export const getGeoLocation = async (
   word: string,
   page?: number,
 ): Promise<GeoLocation> => {
   const queryString = getQueryString({ word, page });
-  const response = await fetchData(`/api/geocode${queryString}`);
+  const response = await fetchDataWithToken(`/api/geocode${queryString}`);
 
   return response.json();
 };

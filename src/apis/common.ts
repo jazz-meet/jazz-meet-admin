@@ -1,8 +1,8 @@
 import { UploadImageRes } from '~/types/api.types';
-import { fetchData } from './fetchData';
+import { fetchDataWithToken } from './fetchData';
 
 export const postImages = async (images: FormData): Promise<UploadImageRes> => {
-  const response = await fetchData(`/api/images`, {
+  const response = await fetchDataWithToken(`/api/images`, {
     method: 'POST',
     body: images,
   });
@@ -17,7 +17,7 @@ export const postImages = async (images: FormData): Promise<UploadImageRes> => {
 };
 
 export const deleteImages = async (imageId: number) => {
-  await fetchData(`/api/images/${imageId}`, {
+  await fetchDataWithToken(`/api/images/${imageId}`, {
     method: 'DELETE',
   });
 };
