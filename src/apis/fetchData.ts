@@ -20,7 +20,7 @@ export const fetchDataWithToken = async (
     ...options,
     headers: {
       ...options?.headers,
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
