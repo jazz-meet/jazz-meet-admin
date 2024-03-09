@@ -11,15 +11,10 @@ const isLengthValid = (
     minLength?: number;
     maxLength?: number;
   },
-) => {
-  const { minLength, maxLength } = options;
+): boolean => {
+  const { minLength = 0, maxLength = Infinity } = options;
 
-  return (
-    minLength !== undefined &&
-    maxLength !== undefined &&
-    value.length >= minLength &&
-    value.length <= maxLength
-  );
+  return value.length >= minLength && value.length <= maxLength;
 };
 
 export const isValidCredential = (loginId: string, password: string) => {
