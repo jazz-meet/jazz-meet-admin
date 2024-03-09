@@ -29,6 +29,7 @@ export const loginAdmin = async (
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ loginId, password }),
   });
   const data = await response.json();
@@ -53,8 +54,9 @@ export const logoutAdmin = async (): Promise<void> => {
 };
 
 export const refreshAdminToken = async (): Promise<string> => {
-  const response = await fetchDataWithToken('/api/admins/reissue', {
+  const response = await fetchData('/api/admins/reissue', {
     method: 'POST',
+    credentials: 'include',
   });
   const data = await response.json();
 
